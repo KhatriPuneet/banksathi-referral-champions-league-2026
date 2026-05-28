@@ -1,0 +1,3200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <meta name="theme-color" content="#F4F1F8" />
+  <title>BankSathi · Referral Champion League</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,400;9..144,500;9..144,600;9..144,700;9..144,800;9..144,900&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap"
+    rel="stylesheet" />
+
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      /* ── BankSathi palette (sampled from the app) ── */
+      /* Page & surface neutrals — cool off-white with a hint of lilac */
+      --ivory: #F4F1F8;
+      /* page background */
+      --paper: #FFFFFF;
+      /* card surface */
+      --paper-2: #ECE5F5;
+      /* sunken/secondary surface (soft lilac) */
+      --line: #E2D9EF;
+      /* hairline border */
+      --line-strong: #C8B8E0;
+
+      /* Ink — BankSathi's deep teal heading colour */
+      --ink: #1B2A3A;
+      /* primary text */
+      --ink-2: #3F4E60;
+      /* secondary text */
+      --ink-mute: #7A8294;
+      /* muted/captions */
+
+      /* "marigold" slot now carries BankSathi's signature PURPLE.
+       Variable names retained for code-stability; meaning is "brand primary". */
+      --marigold: #401B78;
+      /* deep royal purple — primary brand */
+      --marigold-2: #6030A0;
+      /* mid purple — gradients, highlights */
+      --marigold-soft: #EADFFC;
+      /* soft lilac tint background */
+
+      /* "sage" slot now carries BankSathi's mint green (FAB / positive). */
+      --sage: #20C060;
+      /* mint green — success / verified */
+      --sage-soft: #DDF3E1;
+      /* light mint section bg */
+
+      /* Secondary accent — bright purple (the "Earn upto" band) */
+      --lapis: #7E49CB;
+      --lapis-soft: #E6D5FF;
+
+      /* Gold preserved for 1st-place — matches BankSathi's "To Gold" badge */
+      --gold: #B8860B;
+      --gold-soft: #F4E6BF;
+      --bronze: #8B5A2B;
+      --silver: #6B7280;
+
+      --rose: #B23B3B;
+      /* errors/danger, used sparingly */
+
+      --shadow-sm: 0 1px 2px rgba(64, 27, 120, 0.08);
+      --shadow: 0 4px 14px rgba(64, 27, 120, 0.10), 0 1px 3px rgba(64, 27, 120, 0.05);
+      --shadow-lg: 0 12px 32px rgba(64, 27, 120, 0.14), 0 4px 8px rgba(64, 27, 120, 0.08);
+    }
+
+    html,
+    body {
+      height: 100%;
+      background: var(--ivory);
+      color: var(--ink);
+      font-family: 'DM Sans', system-ui, sans-serif;
+      font-size: 15px;
+      line-height: 1.45;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    /* Subtle paper-grain background using tiny dots, plus a warm vignette */
+    body {
+      background-image:
+        radial-gradient(rgba(64, 27, 120, 0.08) 0.6px, transparent 0.6px),
+        radial-gradient(ellipse 80% 60% at 50% 0%, rgba(126, 73, 203, 0.06), transparent 70%);
+      background-size: 14px 14px, 100% 100%;
+    }
+
+    /* Tabular numerals for any digits */
+    .tnum {
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* ── Layout ── */
+    #app {
+      display: flex;
+      flex-direction: column;
+      min-height: 100dvh;
+      max-width: 430px;
+      margin: 0 auto;
+      background: var(--ivory);
+      position: relative;
+      box-shadow: none;
+    }
+
+    /* ── Header ── */
+    .topbar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 18px;
+      background: var(--paper);
+      border-bottom: 1px solid var(--line);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      flex-shrink: 0;
+    }
+
+    .topbar .brand-logo {
+      height: 32px;
+      width: auto;
+      display: block;
+    }
+
+    .topbar .brand-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
+
+    .topbar .brand-name {
+      font-family: 'Fraunces', serif;
+      font-weight: 800;
+      font-size: 14px;
+      font-variation-settings: "opsz" 144, "SOFT" 50;
+      color: var(--ink);
+      letter-spacing: -0.01em;
+    }
+
+    .topbar .brand-tag {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 500;
+      font-size: 12px;
+      color: var(--marigold);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-top: 2px;
+    }
+
+    /* ── Sub-tab bar ── */
+    .subtab-bar {
+      padding: 12px 18px 0;
+      background: var(--ivory);
+      position: sticky;
+      top: 60px;
+      z-index: 40;
+    }
+
+    .subtab-inner {
+      display: flex;
+      gap: 2px;
+      background: var(--paper-2);
+      border-radius: 999px;
+      padding: 4px;
+      border: 1px solid var(--line);
+    }
+
+    .stab {
+      flex: 1;
+      padding: 10px 4px;
+      border: none;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      background: transparent;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 600;
+      font-size: 12px;
+      letter-spacing: 0.02em;
+      color: var(--ink-mute);
+    }
+
+    .stab.active {
+      background: var(--ink);
+      color: var(--ivory);
+      box-shadow: 0 2px 6px rgba(27, 42, 58, 0.18);
+    }
+
+    /* ── Scroll area ── */
+    .scroll-area {
+      flex: 1;
+      overflow-y: auto;
+      scrollbar-width: none;
+      padding-bottom: 32px;
+    }
+
+    .scroll-area::-webkit-scrollbar {
+      display: none;
+    }
+
+    /* ── Tab panels ── */
+    .tab-panel {
+      display: none;
+    }
+
+    .tab-panel.active {
+      display: block;
+    }
+
+    /* ── Cards ── */
+    .card {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .card-marigold {
+      background: linear-gradient(180deg, #F5EDFE, var(--paper));
+      border-color: rgba(126, 73, 203, 0.25);
+    }
+
+    /* ── Contest tab ── */
+    .Contest-wrap {
+      padding: 16px 16px 96px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    /* Season banner — editorial poster style */
+    .season-banner {
+      position: relative;
+      overflow: hidden;
+      border-radius: 18px;
+      background: linear-gradient(135deg, #2A1248 0%, #1B0E36 100%);
+      color: var(--ivory);
+      padding: 26px 22px 24px;
+      border: 1px solid rgba(126, 73, 203, 0.3);
+      box-shadow: var(--shadow-lg);
+    }
+
+    /* Marigold petal motif (decorative SVG via radial gradients) */
+    .season-banner::before {
+      content: "";
+      position: absolute;
+      right: -40px;
+      top: -40px;
+      width: 180px;
+      height: 180px;
+      background:
+        radial-gradient(circle at 30% 30%, rgba(126, 73, 203, 0.35), transparent 55%),
+        radial-gradient(circle at 70% 60%, rgba(184, 134, 11, 0.25), transparent 55%);
+      border-radius: 50%;
+      filter: blur(2px);
+    }
+
+    .season-banner::after {
+      content: "❀";
+      position: absolute;
+      right: 16px;
+      top: 14px;
+      font-size: 18px;
+      color: rgba(126, 73, 203, 0.6);
+    }
+
+    .season-eyebrow {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--marigold-2);
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      margin-bottom: 10px;
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .season-eyebrow .live-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--marigold-2);
+      box-shadow: 0 0 0 0 rgba(126, 73, 203, 0.6);
+      animation: live-pulse 1.8s ease-out infinite;
+    }
+
+    @keyframes live-pulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(126, 73, 203, 0.7);
+      }
+
+      70% {
+        box-shadow: 0 0 0 8px rgba(126, 73, 203, 0);
+      }
+
+      100% {
+        box-shadow: 0 0 0 0 rgba(126, 73, 203, 0);
+      }
+    }
+
+    .season-title {
+      font-family: 'Fraunces', serif;
+      font-weight: 700;
+      font-size: 30px;
+      font-variation-settings: "opsz" 144, "SOFT" 30;
+      line-height: 1.02;
+      letter-spacing: -0.025em;
+      margin-bottom: 10px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .season-title em {
+      font-style: italic;
+      font-weight: 500;
+      color: var(--marigold-2);
+    }
+
+    .season-meta {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      color: rgba(244, 241, 248, 0.7);
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Lifetime Reward card */
+    .lifetime-card {
+      padding: 14px 18px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .lifetime-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 6px;
+    }
+
+    .lifetime-label {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 500;
+      font-size: 11px;
+      color: var(--ink-mute);
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+    }
+
+    .badge-active {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: var(--sage-soft);
+      color: var(--sage);
+      border: 1px solid rgba(32, 192, 96, 0.25);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .badge-active .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--sage);
+      animation: live-pulse 2s ease-out infinite;
+    }
+
+    .lifetime-value {
+      font-family: 'Fraunces', serif;
+      font-weight: 700;
+      font-size: 28px;
+      font-variation-settings: "opsz" 144, "SOFT" 40;
+      color: var(--marigold);
+      line-height: 1;
+      letter-spacing: -0.03em;
+      margin-bottom: 4px;
+    }
+
+    .lifetime-value .pct {
+      font-style: italic;
+      font-weight: 500;
+    }
+
+    .lifetime-sub {
+      font-size: 13px;
+      color: var(--ink-2);
+      max-width: 240px;
+    }
+
+    /* ── Section heading ── */
+    .section-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 14px;
+      padding: 0 2px;
+    }
+
+    .section-head h2 {
+      font-family: 'Fraunces', serif;
+      font-weight: 700;
+      font-size: 28px;
+      font-variation-settings: "opsz" 144, "SOFT" 40;
+      letter-spacing: -0.03em;
+      color: var(--marigold);
+    }
+
+    .section-head .hint {
+      font-size: 11px;
+      color: var(--ink-mute);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-weight: 500;
+    }
+
+    /* ── Prize carousel ── */
+    .prizes-carousel {
+      position: relative;
+      overflow: hidden;
+      padding-bottom: 4px;
+      -webkit-mask-image: linear-gradient(to right, transparent 0, #000 24px, #000 calc(100% - 24px), transparent 100%);
+      mask-image: linear-gradient(to right, transparent 0, #000 24px, #000 calc(100% - 24px), transparent 100%);
+    }
+
+    .prizes-track {
+      display: flex;
+      gap: 12px;
+      width: max-content;
+      animation: prize-marquee 12s linear infinite;
+      will-change: transform;
+    }
+
+    .prizes-carousel:hover .prizes-track,
+    .prizes-carousel:focus-within .prizes-track,
+    .prizes-carousel.paused .prizes-track {
+      animation-play-state: paused;
+    }
+
+    @keyframes prize-marquee {
+      from {
+        transform: translateX(0);
+      }
+
+      to {
+        transform: translateX(-50%);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .prizes-track {
+        animation: none;
+      }
+    }
+
+    .prize-card {
+      min-width: 156px;
+      border-radius: 14px;
+      padding: 16px 14px;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      flex-shrink: 0;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .prize-card.first {
+      background: linear-gradient(180deg, #FBF1D8, var(--paper));
+      border-color: rgba(184, 134, 11, 0.4);
+      box-shadow: 0 4px 16px rgba(184, 134, 11, 0.15);
+    }
+
+    .prize-rank {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 9.5px;
+      font-weight: 700;
+      padding: 4px 9px;
+      border-radius: 999px;
+      letter-spacing: 0.08em;
+    }
+
+    .prize-rank.r1 {
+      background: var(--gold);
+      color: #fff;
+    }
+
+    .prize-rank.r2 {
+      background: var(--silver);
+      color: #fff;
+    }
+
+    .prize-rank.r3 {
+      background: var(--bronze);
+      color: #fff;
+    }
+
+    .prize-rank.r4 {
+      background: var(--ink);
+      color: var(--ivory);
+    }
+
+    .prize-icon {
+      font-size: 32px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 4px;
+    }
+
+    .prize-name {
+      font-family: 'Fraunces', serif;
+      font-weight: 600;
+      font-size: 15px;
+      color: var(--ink);
+      letter-spacing: -0.01em;
+      margin-bottom: 4px;
+    }
+
+
+
+    /* ── Ticket Pair connector (Lifetime ↔ Prizes) ── */
+    .ticket-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Zero-height row whose children straddle the card boundary */
+    .ticket-joint {
+      position: relative;
+      height: 0;
+      z-index: 10;
+    }
+
+    /* Half-circle notches — centered on each card's edge */
+    .ticket-notch-bottom,
+    .ticket-notch-top {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: var(--marigold-soft);
+      border: 1.5px solid var(--line);
+      z-index: 5;
+    }
+
+    /* Sits at the bottom of the lifetime card — top half visible */
+    .ticket-notch-bottom {
+      bottom: -28px;
+    }
+
+    /* Sits at the top of the prizes card — bottom half visible */
+    .ticket-notch-top {
+      top: -28px;
+    }
+
+    /* Outer ring around the + button — absolutely centered on the boundary */
+    .t-plus-ring {
+      display: none;
+    }
+
+    /* Inner filled + circle — centered on the card boundary */
+    .t-plus-btn {
+      position: absolute;
+      left: 50%;
+      top: 0;
+      transform: translate(-50%, -50%);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--marigold);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 12;
+    }
+
+
+    /* Prizes container card */
+    .prizes-container-card {
+      padding: 16px 0 14px;
+      overflow: hidden;
+      position: relative;
+      border-top-left-radius: 16px;
+      border-top-right-radius: 16px;
+    }
+
+    .prizes-container-card .section-head {
+      padding: 0 18px;
+      margin-bottom: 14px;
+    }
+
+    /* ── Contest Countdown Timer ── */
+
+    .contest-timer {
+      padding: 2px 0 10px;
+    }
+
+    .contest-timer-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .contest-timer-header .timer-line {
+      flex: 1;
+      height: 1.5px;
+      background: linear-gradient(to right, transparent, var(--lapis-soft));
+    }
+
+    .contest-timer-header .timer-line.right {
+      background: linear-gradient(to left, transparent, var(--lapis-soft));
+    }
+
+    .contest-timer-header .timer-label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-2);
+      white-space: nowrap;
+    }
+
+    .contest-timer-header .timer-label svg.icon {
+      width: 14px;
+      height: 14px;
+      color: var(--lapis);
+    }
+
+    .timer-blocks {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .timer-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      min-width: 48px;
+    }
+
+    .timer-digits {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      width: 52px;
+      height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow-sm);
+      font-variant-numeric: tabular-nums;
+      transition: color 0.2s ease;
+    }
+
+    .timer-unit {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 10px;
+      font-weight: 500;
+      color: var(--ink-mute);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .timer-colon {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--line-strong);
+      padding-top: 14px;
+      line-height: 1;
+    }
+
+    .timer-ended {
+      text-align: center;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--ink-mute);
+      padding: 12px 0 4px;
+      letter-spacing: 0.02em;
+    }
+
+    /* ── Stepper (How to Conquer) ── */
+    .stepper-card {
+      padding: 22px;
+    }
+
+    .stepper-card h2 {
+      font-family: 'Fraunces', serif;
+      font-weight: 600;
+      font-size: 20px;
+      margin-bottom: 22px;
+      letter-spacing: -0.02em;
+    }
+
+    .steps {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .step {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      position: relative;
+      padding-bottom: 24px;
+    }
+
+    .step:last-child {
+      padding-bottom: 0;
+    }
+
+    .step-line {
+      position: absolute;
+      left: 19px;
+      top: 40px;
+      bottom: -2px;
+      width: 2px;
+      background: var(--line);
+      overflow: hidden;
+    }
+
+    .step-line::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      right: 0;
+      height: 0%;
+      background: linear-gradient(180deg, var(--marigold), var(--marigold-2));
+    }
+
+    .step:last-child .step-line {
+      display: none;
+    }
+
+    .step-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      border: 2px solid var(--line-strong);
+      color: var(--ink-mute);
+      background: var(--paper);
+      position: relative;
+      z-index: 1;
+      transition: all 0.4s ease;
+    }
+
+    .step h3 {
+      font-family: 'Fraunces', serif;
+      font-weight: 600;
+      font-size: 16px;
+      color: var(--ink);
+      margin-bottom: 4px;
+      letter-spacing: -0.01em;
+    }
+
+    .step p {
+      font-size: 13px;
+      color: var(--ink-2);
+      line-height: 1.5;
+    }
+
+    /* Sequential animation: 1 → 2 → 3, loops every 6s */
+    .stepper-card .step:nth-child(1) .step-icon {
+      animation: step-activate 6s ease-in-out infinite;
+      animation-delay: 0s;
+    }
+
+    .stepper-card .step:nth-child(2) .step-icon {
+      animation: step-activate 6s ease-in-out infinite;
+      animation-delay: 2s;
+    }
+
+    .stepper-card .step:nth-child(3) .step-icon {
+      animation: step-activate 6s ease-in-out infinite;
+      animation-delay: 4s;
+    }
+
+    .stepper-card .step:nth-child(1) .step-line::after {
+      animation: line-fill 6s ease-in-out infinite;
+      animation-delay: 0.6s;
+    }
+
+    .stepper-card .step:nth-child(2) .step-line::after {
+      animation: line-fill 6s ease-in-out infinite;
+      animation-delay: 2.6s;
+    }
+
+    @keyframes step-activate {
+      0% {
+        border-color: var(--line-strong);
+        color: var(--ink-mute);
+        transform: scale(1);
+        box-shadow: none;
+        background: var(--paper);
+      }
+
+      8% {
+        border-color: var(--marigold);
+        color: var(--marigold);
+        transform: scale(1.12);
+        box-shadow: 0 0 0 0 rgba(126, 73, 203, 0.4);
+        background: var(--marigold-soft);
+      }
+
+      18% {
+        transform: scale(1);
+        box-shadow: 0 0 0 10px rgba(126, 73, 203, 0);
+      }
+
+      30% {
+        border-color: var(--marigold);
+        color: var(--marigold);
+        transform: scale(1);
+        box-shadow: none;
+        background: var(--marigold-soft);
+      }
+
+      95% {
+        border-color: var(--marigold);
+        color: var(--marigold);
+        background: var(--marigold-soft);
+      }
+
+      100% {
+        border-color: var(--line-strong);
+        color: var(--ink-mute);
+        background: var(--paper);
+      }
+    }
+
+    @keyframes line-fill {
+      0% {
+        height: 0%;
+        opacity: 0;
+      }
+
+      8% {
+        opacity: 1;
+      }
+
+      30% {
+        height: 100%;
+        opacity: 1;
+      }
+
+      95% {
+        height: 100%;
+        opacity: 1;
+      }
+
+      100% {
+        height: 0%;
+        opacity: 0;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      .stepper-card .step .step-icon,
+      .stepper-card .step .step-line::after {
+        animation: none;
+      }
+
+      .stepper-card .step .step-line::after {
+        height: 100%;
+        opacity: 1;
+      }
+    }
+
+    /* ── Info rows ── */
+    .info-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 18px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: var(--paper);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .info-row:hover {
+      transform: translateY(-1px);
+      box-shadow: var(--shadow);
+    }
+
+    .info-row:active {
+      transform: translateY(0);
+    }
+
+    .info-row-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .info-row-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .info-row h3 {
+      font-family: 'Fraunces', serif;
+      font-weight: 600;
+      font-size: 15px;
+      color: var(--ink);
+      letter-spacing: -0.01em;
+    }
+
+    .info-row p {
+      font-size: 12.5px;
+      color: var(--ink-mute);
+      margin-top: 1px;
+    }
+
+    .chevron {
+      color: var(--ink-mute);
+    }
+
+    /* ── Floating "Refer Now" CTA (Contest tab only) ── */
+    .refer-fab {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: calc(100% - 32px);
+      max-width: 398px;
+      z-index: 60;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 16px 22px;
+      border: none;
+      border-radius: 999px;
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: 0.04em;
+      color: var(--ivory);
+      background: linear-gradient(135deg, var(--marigold) 0%, var(--marigold-2) 50%, var(--lapis) 100%);
+      background-size: 200% 200%;
+      box-shadow: none;
+      animation: fab-float 3s ease-in-out infinite, fab-shimmer 4s ease-in-out infinite;
+      transition: transform 0.15s ease, box-shadow 0.2s ease;
+    }
+
+    .refer-fab.visible {
+      display: flex;
+      box-shadow:
+        0 8px 24px rgba(126, 73, 203, 0.45),
+        0 2px 6px rgba(27, 42, 58, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    }
+
+    .refer-fab:active {
+      animation-play-state: paused;
+      transform: translateX(-50%) scale(0.97);
+      box-shadow: 0 4px 14px rgba(126, 73, 203, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    }
+
+    .refer-fab .icon {
+      font-size: 16px;
+      stroke-width: 2.5;
+    }
+
+    .refer-fab::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 999px;
+      border: 2px solid rgba(126, 73, 203, 0.6);
+      pointer-events: none;
+      opacity: 0;
+    }
+
+    .refer-fab.visible::before {
+      opacity: 1;
+      animation: fab-pulse 2.2s ease-out infinite;
+    }
+
+    @keyframes fab-float {
+
+      0%,
+      100% {
+        transform: translateX(-50%) translateY(0);
+      }
+
+      50% {
+        transform: translateX(-50%) translateY(-4px);
+      }
+    }
+
+    @keyframes fab-shimmer {
+
+      0%,
+      100% {
+        background-position: 0% 50%;
+      }
+
+      50% {
+        background-position: 100% 50%;
+      }
+    }
+
+    @keyframes fab-pulse {
+      0% {
+        transform: scale(1);
+        opacity: 0.65;
+      }
+
+      100% {
+        transform: scale(1.12);
+        opacity: 0;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .refer-fab {
+        animation: none;
+      }
+
+      .refer-fab::before {
+        animation: none;
+        opacity: 0;
+      }
+    }
+
+    /* ── LEADERBOARD ── */
+    .lb-wrap {
+      padding: 0 0 120px;
+    }
+
+    /* User strip — floats at the bottom of the Leaderboard tab,
+     so you always see YOUR rank while scrolling the list.
+     Tap to open the Recent Referrals sheet. */
+    .user-card {
+      position: fixed;
+      left: 50%;
+      bottom: 16px;
+      transform: translateX(-50%);
+      width: calc(100% - 24px);
+      max-width: 406px;
+      z-index: 60;
+
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 12px 14px;
+      border-radius: 18px;
+
+      /* Warm cream pill with a marigold tinge — sits over the list */
+      background: linear-gradient(180deg, #FFFFFF 0%, #EADFFC 100%);
+      border: 1px solid rgba(126, 73, 203, 0.35);
+      box-shadow:
+        0 12px 32px rgba(64, 27, 120, 0.20),
+        0 4px 10px rgba(126, 73, 203, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.7);
+      -webkit-backdrop-filter: blur(8px);
+      backdrop-filter: blur(8px);
+
+      /* Tappable affordances */
+      cursor: pointer;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+      transition: transform 0.15s ease, box-shadow 0.2s ease;
+
+      animation: user-card-rise 0.45s cubic-bezier(0.32, 0.72, 0.2, 1) both;
+    }
+
+    .user-card:hover {
+      transform: translateX(-50%) translateY(-2px);
+      box-shadow:
+        0 16px 36px rgba(64, 27, 120, 0.24),
+        0 6px 14px rgba(126, 73, 203, 0.18),
+        inset 0 1px 0 rgba(255, 255, 255, 0.7);
+    }
+
+    .user-card:active {
+      transform: translateX(-50%) scale(0.985);
+    }
+
+    @keyframes user-card-rise {
+      from {
+        transform: translate(-50%, 120%);
+        opacity: 0;
+      }
+
+      to {
+        transform: translate(-50%, 0);
+        opacity: 1;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .user-card {
+        animation: none;
+      }
+    }
+
+    /* Rank number on the far left, just the digits */
+    .user-rank-pill {
+      font-family: 'Fraunces', serif;
+      font-weight: 700;
+      font-size: 22px;
+      font-variation-settings: "opsz" 144;
+      color: var(--ink);
+      line-height: 1;
+      min-width: 34px;
+      text-align: center;
+    }
+
+    .user-rank-pill .hash {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--marigold);
+      margin-right: 1px;
+      vertical-align: top;
+    }
+
+    /* Dark avatar disc, between rank and name */
+    .user-avatar-disc {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: var(--ink);
+      color: var(--marigold-2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Fraunces', serif;
+      font-weight: 700;
+      font-size: 17px;
+      flex-shrink: 0;
+      border: 2px solid rgba(255, 255, 255, 0.5);
+      box-shadow: 0 2px 6px rgba(27, 42, 58, 0.2);
+    }
+
+    .user-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .user-info .name {
+      font-family: 'Fraunces', serif;
+      font-weight: 700;
+      font-size: 15px;
+      color: var(--ink);
+      letter-spacing: -0.01em;
+      line-height: 1.15;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .user-info .name .you-mark {
+      color: var(--marigold);
+      font-style: italic;
+      font-weight: 500;
+      margin-right: 3px;
+    }
+
+    .user-info .sub {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 10.5px;
+      font-weight: 500;
+      color: var(--ink-mute);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      margin-top: 3px;
+    }
+
+    /* Points pill on the right — dark capsule with star + number */
+    .user-pts-pill {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 12px 8px 10px;
+      background: var(--ink);
+      color: var(--ivory);
+      border-radius: 999px;
+      flex-shrink: 0;
+      box-shadow: 0 2px 6px rgba(27, 42, 58, 0.2);
+    }
+
+    .user-pts-pill .star {
+      color: var(--marigold-2);
+      font-size: 13px;
+      line-height: 1;
+    }
+
+    .user-pts-pill .v {
+      font-family: 'Fraunces', serif;
+      font-weight: 700;
+      font-size: 17px;
+      line-height: 1;
+    }
+
+    /* Tiny delta tag tucked under the pill */
+    .user-pts-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 3px;
+      flex-shrink: 0;
+    }
+
+    .user-pts-wrap .delta {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 9.5px;
+      font-weight: 600;
+      color: var(--sage);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    /* Podium */
+    .podium-bg {
+      padding: 22px 16px 0;
+      background: linear-gradient(180deg, rgba(126, 73, 203, 0.05), transparent 60%);
+    }
+
+    .podium-row {
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      gap: 10px;
+      max-width: 320px;
+      margin: 0 auto;
+    }
+
+    .podium-slot {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex: 1;
+    }
+
+    .podium-crown {
+      font-size: 18px;
+      color: var(--gold);
+      margin-bottom: 2px;
+      animation: crown-bob 2.6s ease-in-out infinite;
+    }
+
+    @keyframes crown-bob {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-3px);
+      }
+    }
+
+    .podium-avatar {
+      border-radius: 50%;
+      overflow: hidden;
+      border: 3px solid;
+      margin-bottom: 8px;
+      background: var(--paper);
+    }
+
+    .podium-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .podium-avatar.p1 {
+      width: 70px;
+      height: 70px;
+      border-color: var(--gold);
+      box-shadow: 0 4px 16px rgba(184, 134, 11, 0.3);
+    }
+
+    .podium-avatar.p2 {
+      width: 56px;
+      height: 56px;
+      border-color: var(--silver);
+    }
+
+    .podium-avatar.p3 {
+      width: 56px;
+      height: 56px;
+      border-color: var(--bronze);
+    }
+
+    .podium-name {
+      font-family: 'Fraunces', serif;
+      font-size: 13px;
+      font-weight: 600;
+      text-align: center;
+      margin-bottom: 6px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 96px;
+      color: var(--ink);
+    }
+
+    .podium-pts {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 999px;
+      margin-bottom: 10px;
+      letter-spacing: 0.04em;
+    }
+
+    .podium-pts.p1 {
+      background: var(--gold-soft);
+      color: var(--gold);
+    }
+
+    .podium-pts.p2 {
+      background: #E5E7EB;
+      color: var(--silver);
+    }
+
+    .podium-pts.p3 {
+      background: #F5E4D3;
+      color: var(--bronze);
+    }
+
+    .podium-base {
+      width: 100%;
+      border-radius: 8px 8px 0 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 1;
+      border-bottom: none;
+    }
+
+    .podium-base.p1 {
+      height: 76px;
+      background: linear-gradient(180deg, #FBF1D8, var(--gold-soft));
+      border: 1px solid rgba(184, 134, 11, 0.35);
+    }
+
+    .podium-base.p2 {
+      height: 54px;
+      background: linear-gradient(180deg, #F1F1F1, #E5E7EB);
+      border: 1px solid rgba(107, 114, 128, 0.25);
+    }
+
+    .podium-base.p3 {
+      height: 40px;
+      background: linear-gradient(180deg, #F5E4D3, #EBD3BD);
+      border: 1px solid rgba(139, 90, 43, 0.25);
+    }
+
+    .podium-num {
+      font-family: 'Fraunces', serif;
+      font-weight: 800;
+      font-variation-settings: "opsz" 144;
+      line-height: 1;
+    }
+
+    .podium-num.p1 {
+      font-size: 28px;
+      color: rgba(184, 134, 11, 0.35);
+    }
+
+    .podium-num.p2 {
+      font-size: 22px;
+      color: rgba(107, 114, 128, 0.35);
+    }
+
+    .podium-num.p3 {
+      font-size: 18px;
+      color: rgba(139, 90, 43, 0.35);
+    }
+
+    /* LB list — sits IN FRONT of podium bases */
+    .lb-list {
+      background: var(--paper);
+      border-radius: 24px 24px 0 0;
+      border: 1px solid var(--line);
+      border-bottom: none;
+      padding: 18px 16px 8px;
+      margin-top: -8px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .lb-list-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 0 4px 12px;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 8px;
+    }
+
+    .lb-list-head h3 {
+      font-family: 'Fraunces', serif;
+      font-weight: 600;
+      font-size: 15px;
+      color: var(--ink);
+    }
+
+    .lb-list-head .count {
+      font-size: 11px;
+      color: var(--ink-mute);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-weight: 500;
+    }
+
+    .lb-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 12px 4px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .lb-item:last-child {
+      border-bottom: none;
+    }
+
+    .lb-rank {
+      width: 28px;
+      flex-shrink: 0;
+      font-family: 'Fraunces', serif;
+      font-weight: 600;
+      font-size: 15px;
+      color: var(--ink-2);
+      text-align: center;
+    }
+
+    .lb-avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: var(--paper-2);
+      overflow: hidden;
+      flex-shrink: 0;
+      border: 1px solid var(--line);
+    }
+
+    .lb-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .lb-name {
+      flex: 1;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 600;
+      font-size: 14px;
+      color: var(--ink);
+    }
+
+    .lb-name small {
+      display: block;
+      font-weight: 400;
+      font-size: 11px;
+      color: var(--ink-mute);
+      margin-top: 1px;
+    }
+
+    .lb-pts {
+      font-family: 'Fraunces', serif;
+      font-weight: 600;
+      font-size: 15px;
+      color: var(--marigold);
+    }
+
+    .lb-pts small {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 10px;
+      font-weight: 500;
+      color: var(--ink-mute);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-left: 3px;
+    }
+
+    /* ── REFER tab ── */
+    .refer-wrap {
+      padding: 16px 16px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .code-card {
+      padding: 20px;
+      background: linear-gradient(180deg, #F5EDFE, var(--paper));
+      border: 1px dashed var(--line-strong);
+      border-radius: 16px;
+      text-align: center;
+    }
+
+    .code-label {
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--ink-mute);
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      margin-bottom: 10px;
+    }
+
+    .code-value {
+      font-family: 'Fraunces', serif;
+      font-weight: 700;
+      font-size: 30px;
+      font-variation-settings: "opsz" 144, "SOFT" 30;
+      color: var(--ink);
+      letter-spacing: 0.05em;
+      margin-bottom: 14px;
+    }
+
+    .copy-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 22px;
+      border: none;
+      border-radius: 999px;
+      background: var(--ink);
+      color: var(--ivory);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 600;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .copy-btn:hover {
+      background: var(--marigold);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow);
+    }
+
+    .copy-btn:active {
+      transform: translateY(0);
+    }
+
+    .share-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    .share-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      padding: 16px 8px;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .share-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow);
+      border-color: var(--line-strong);
+    }
+
+    .share-btn .si {
+      width: 36px;
+      height: 36px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+    }
+
+    .share-btn .si.wa {
+      background: #25D366;
+    }
+
+    .share-btn .si.tg {
+      background: #229ED9;
+    }
+
+    .share-btn .si.lk {
+      background: var(--lapis);
+    }
+
+    .share-btn span {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--ink-2);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    /* Earnings strip */
+    .earnings-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .earnings-card {
+      padding: 16px;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+    }
+
+    .earnings-card .l {
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--ink-mute);
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      margin-bottom: 8px;
+    }
+
+    .earnings-card .v {
+      font-family: 'Fraunces', serif;
+      font-weight: 700;
+      font-size: 24px;
+      color: var(--ink);
+      letter-spacing: -0.02em;
+      line-height: 1;
+    }
+
+    .earnings-card.pending .v {
+      color: var(--marigold);
+    }
+
+    .earnings-card.claimable .v {
+      color: var(--sage);
+    }
+
+    .earnings-card .s {
+      font-size: 11px;
+      color: var(--ink-mute);
+      margin-top: 4px;
+    }
+
+    /* Referrals preview */
+    .refs-card {
+      padding: 18px;
+    }
+
+    .refs-card h3 {
+      font-family: 'Fraunces', serif;
+      font-weight: 600;
+      font-size: 17px;
+      margin-bottom: 14px;
+      letter-spacing: -0.01em;
+    }
+
+    .ref-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .ref-item:last-of-type {
+      border-bottom: none;
+    }
+
+    .ref-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .ref-avatar {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: var(--paper-2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .ref-name {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 600;
+      font-size: 13.5px;
+      color: var(--ink);
+    }
+
+    .ref-status {
+      font-size: 11px;
+      margin-top: 1px;
+    }
+
+    .ref-status.done {
+      color: var(--sage);
+    }
+
+    .ref-status.gold {
+      color: var(--gold);
+    }
+
+    .ref-status.pending {
+      color: var(--ink-mute);
+    }
+
+    /* Verified / Pending badges (small pills) */
+    .ref-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 9px 4px 7px;
+      border-radius: 999px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .ref-badge .icon {
+      width: 11px;
+      height: 11px;
+      stroke-width: 2.5;
+    }
+
+    .ref-badge.verified {
+      background: var(--sage-soft);
+      color: var(--sage);
+      border: 1px solid rgba(32, 192, 96, 0.3);
+    }
+
+    .ref-badge.pending {
+      background: var(--marigold-soft);
+      color: var(--marigold);
+      border: 1px solid rgba(126, 73, 203, 0.25);
+    }
+
+    .view-all-btn {
+      width: 100%;
+      margin-top: 14px;
+      padding: 12px;
+      border: 1px solid var(--line-strong);
+      background: transparent;
+      color: var(--ink);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 600;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .view-all-btn:hover {
+      background: var(--ink);
+      color: var(--ivory);
+    }
+
+    /* ── Bottom sheets ── */
+    .sheet-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(27, 42, 58, 0.55);
+      z-index: 70;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .sheet-overlay.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .bottom-sheet {
+      position: fixed;
+      left: 50%;
+      bottom: 0;
+      transform: translate(-50%, 100%);
+      width: 100%;
+      max-width: 430px;
+      max-height: 85vh;
+      background: var(--paper);
+      border-radius: 22px 22px 0 0;
+      z-index: 80;
+      transition: transform 0.35s cubic-bezier(0.32, 0.72, 0, 1);
+      box-shadow: none;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .bottom-sheet.open {
+      transform: translate(-50%, 0);
+      box-shadow: 0 -10px 40px rgba(27, 42, 58, 0.2);
+    }
+
+    .sheet-handle {
+      width: 40px;
+      height: 4px;
+      border-radius: 2px;
+      background: var(--line-strong);
+      margin: 10px auto 4px;
+      cursor: pointer;
+    }
+
+    .sheet-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 20px 16px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .sheet-title {
+      font-family: 'Fraunces', serif;
+      font-weight: 600;
+      font-size: 18px;
+      letter-spacing: -0.02em;
+    }
+
+    .sheet-close {
+      width: 32px;
+      height: 32px;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      background: var(--paper);
+      color: var(--ink);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .sheet-scroll {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px;
+      scrollbar-width: none;
+    }
+
+    .sheet-scroll::-webkit-scrollbar {
+      display: none;
+    }
+
+    .rules-section-title {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--ink-mute);
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      margin-bottom: 12px;
+    }
+
+    .rules-prizes {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .rule-prize-card {
+      padding: 14px;
+      background: var(--paper-2);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+    }
+
+    .rule-prize-rank {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--ink-mute);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 6px;
+    }
+
+    .rule-prize-rank.gold {
+      color: var(--gold);
+    }
+
+    .rule-prize-name {
+      font-family: 'Fraunces', serif;
+      font-weight: 600;
+      font-size: 14px;
+      margin-bottom: 4px;
+      color: var(--ink);
+    }
+
+    .rule-prize-val {
+      font-size: 11.5px;
+      font-weight: 600;
+      color: var(--ink-2);
+    }
+
+    .rule-prize-val.gold {
+      color: var(--gold);
+    }
+
+    .divider {
+      height: 1px;
+      background: var(--line);
+      margin: 18px 0;
+    }
+
+    .rule-item {
+      display: flex;
+      gap: 10px;
+      padding: 8px 0;
+      align-items: flex-start;
+    }
+
+    .rule-dot {
+      color: var(--marigold);
+      font-weight: 700;
+      flex-shrink: 0;
+      line-height: 1.5;
+    }
+
+    .rule-text {
+      font-size: 13.5px;
+      color: var(--ink-2);
+      line-height: 1.55;
+    }
+
+    .understand-btn {
+      width: 100%;
+      margin-top: 20px;
+      padding: 14px;
+      background: var(--ink);
+      color: var(--ivory);
+      border: none;
+      border-radius: 999px;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .understand-btn:hover {
+      background: var(--marigold);
+    }
+
+    .faq-item {
+      padding: 14px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .faq-item:last-child {
+      border-bottom: none;
+    }
+
+    .faq-q {
+      font-family: 'Fraunces', serif;
+      font-weight: 600;
+      font-size: 14.5px;
+      color: var(--ink);
+      margin-bottom: 6px;
+      letter-spacing: -0.01em;
+    }
+
+    .faq-a {
+      font-size: 13px;
+      color: var(--ink-2);
+      line-height: 1.55;
+    }
+
+    .sheet-ref-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .sheet-ref-item:last-of-type {
+      border-bottom: none;
+    }
+
+    /* Icons */
+    .icon {
+      width: 1em;
+      height: 1em;
+      display: inline-block;
+      vertical-align: -0.125em;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .icon.fill {
+      fill: currentColor;
+      stroke: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+
+    <!-- ══ SVG ICON SPRITE ══ -->
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+      <symbol id="i-tv" viewBox="0 0 24 24">
+        <rect x="3" y="5" width="18" height="13" rx="2" />
+        <path d="M8 21h8" />
+        <path d="M12 18v3" />
+      </symbol>
+      <symbol id="i-tablet" viewBox="0 0 24 24">
+        <rect x="5" y="3" width="14" height="18" rx="2" />
+        <path d="M10 18h4" />
+      </symbol>
+      <symbol id="i-phone" viewBox="0 0 24 24">
+        <rect x="7" y="2" width="10" height="20" rx="2" />
+        <path d="M11 18h2" />
+      </symbol>
+      <symbol id="i-headphones" viewBox="0 0 24 24">
+        <path d="M3 14v-2a9 9 0 0 1 18 0v2" />
+        <path d="M3 14h3v6H3z" />
+        <path d="M18 14h3v6h-3z" />
+      </symbol>
+      <symbol id="i-share" viewBox="0 0 24 24">
+        <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8" />
+        <polyline points="16 6 12 2 8 6" />
+        <line x1="12" y1="2" x2="12" y2="15" />
+      </symbol>
+      <symbol id="i-hourglass" viewBox="0 0 24 24">
+        <path d="M6 2h12" />
+        <path d="M6 22h12" />
+        <path d="M6 2c0 4 6 6 6 10s-6 6-6 10" />
+        <path d="M18 2c0 4-6 6-6 10s6 6 6 10" />
+      </symbol>
+      <symbol id="i-money" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="9" />
+        <path d="M14 9.5c0-1-1-2-2.5-2S9 8.5 9 9.5s1 1.5 3 2 3 1 3 2-1.5 2-3 2-3-1-3-2" />
+        <path d="M12 7v10" />
+      </symbol>
+      <symbol id="i-info" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="9" />
+        <path d="M12 8v0" />
+        <path d="M11 12h1v5h1" />
+      </symbol>
+      <symbol id="i-question" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="9" />
+        <path d="M9.5 9a2.5 2.5 0 0 1 5 0c0 1.5-2.5 2-2.5 3.5" />
+        <path d="M12 17v.01" />
+      </symbol>
+      <symbol id="i-chevron-right" viewBox="0 0 24 24">
+        <polyline points="9 6 15 12 9 18" />
+      </symbol>
+      <symbol id="i-copy" viewBox="0 0 24 24">
+        <rect x="8" y="8" width="13" height="13" rx="2" />
+        <path d="M3 16V5a2 2 0 0 1 2-2h11" />
+      </symbol>
+      <symbol id="i-check" viewBox="0 0 24 24">
+        <polyline points="20 6 9 17 4 12" />
+      </symbol>
+      <symbol id="i-user" viewBox="0 0 24 24">
+        <circle cx="12" cy="8" r="4" />
+        <path d="M4 22a8 8 0 0 1 16 0" />
+      </symbol>
+      <symbol id="i-clock" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="10" />
+        <path d="M12 6v6l4 2" />
+      </symbol>
+      <symbol id="i-circle-check" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="10" />
+        <polyline points="8 12 11 15 16 9" />
+      </symbol>
+      <symbol id="i-x" viewBox="0 0 24 24">
+        <path d="M18 6L6 18" />
+        <path d="M6 6l12 12" />
+      </symbol>
+      <symbol id="i-wa" viewBox="0 0 24 24">
+        <path d="M20 12a8 8 0 0 1-12.3 6.8L4 20l1.2-3.6A8 8 0 1 1 20 12z" />
+        <path d="M9 9c1 3 3 5 6 6" />
+      </symbol>
+      <symbol id="i-tg" viewBox="0 0 24 24">
+        <path d="M21 3L3 11l7 2 2 7 4-6 5-11z" />
+      </symbol>
+      <symbol id="i-link" viewBox="0 0 24 24">
+        <path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7L11.5 5.5" />
+        <path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7L12.5 18.5" />
+      </symbol>
+      <symbol id="i-crown" viewBox="0 0 24 24" class="fill">
+        <path d="M3 20h18l-1.5-9L15 14l-3-7-3 7-4.5-3L3 20z" />
+      </symbol>
+    </svg>
+
+    <!-- ══ TOP BAR ══ -->
+    <header class="topbar">
+      <img
+        src="data:image/webp;base64,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"
+        alt="BankSathi" class="brand-logo" />
+      <div class="brand-text">
+        <span class="brand-name">BankSathi</span>
+        <span class="brand-tag">Referral Champion League</span>
+      </div>
+    </header>
+
+    <!-- ══ SUB-TABS ══ -->
+    <div class="subtab-bar">
+      <div class="subtab-inner">
+        <button class="stab active" id="stab-Contest" onclick="showTab('Contest')">Contest</button>
+        <button class="stab" id="stab-leaderboard" onclick="showTab('leaderboard')">Leaderboard</button>
+        <button class="stab" id="stab-refer" onclick="showTab('refer')">Refer</button>
+      </div>
+    </div>
+
+    <!-- ══ SCROLL AREA ══ -->
+    <div class="scroll-area">
+
+      <!-- ══ Contest TAB ══ -->
+      <div class="tab-panel active" id="tab-Contest">
+        <div class="Contest-wrap">
+
+          <!-- Season banner -->
+          <div class="season-banner">
+            <!-- <div class="season-eyebrow"><span class="live-dot"></span>Season 1 · Live Now</div>
+          <h1 class="season-title">Champion <em>League</em><br/>2025</h1>
+          <div class="season-meta">Top 50 advisors win exclusive prizes · Ends Dec 31</div> -->
+          </div>
+
+          <!-- Lifetime + Prizes ticket pair -->
+          <div class="ticket-pair">
+
+            <!-- Lifetime Reward -->
+            <div class="card card-marigold lifetime-card">
+              <div class="lifetime-head">
+                <span class="lifetime-label">Lifetime Earnings</span>
+              </div>
+              <div class="lifetime-value">10<span class="pct">%</span> Commission</div>
+              <p class="lifetime-sub">Earn forever on every referral's earnings.</p>
+              <!-- bottom-center semicircle notch -->
+              <div class="ticket-notch-bottom" aria-hidden="true"></div>
+            </div>
+
+            <!-- Ticket connector -->
+            <div class="ticket-joint" aria-hidden="true">
+              <div class="t-plus-btn" aria-hidden="true">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M7 1v12M1 7h12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" />
+                </svg>
+              </div>
+            </div>
+
+            <!-- Prizes card -->
+            <div class="card prizes-container-card">
+              <!-- top-center semicircle notch -->
+              <div class="ticket-notch-top" aria-hidden="true"></div>
+              <div class="section-head">
+                <h2>Win Big Prizes</h2>
+              </div>
+              <div class="prizes-carousel" id="prizesCarousel">
+                <div class="prizes-track">
+                  <!-- copy 1 -->
+                  <div class="prize-card first">
+                    <div class="prize-rank r1">1ST</div>
+                    <div class="prize-icon" style="color:var(--gold)"><svg class="icon">
+                        <use href="#i-tv"></use>
+                      </svg></div>
+                    <div class="prize-name">50" Smart TV</div>
+                  </div>
+                  <div class="prize-card">
+                    <div class="prize-rank r2">2ND</div>
+                    <div class="prize-icon" style="color:var(--silver)"><svg class="icon">
+                        <use href="#i-tablet"></use>
+                      </svg></div>
+                    <div class="prize-name">Pro Tablet</div>
+                  </div>
+                  <div class="prize-card">
+                    <div class="prize-rank r3">3RD</div>
+                    <div class="prize-icon" style="color:var(--bronze)"><svg class="icon">
+                        <use href="#i-phone"></use>
+                      </svg></div>
+                    <div class="prize-name">Smartphone</div>
+                  </div>
+                  <div class="prize-card">
+                    <div class="prize-rank r4">4–50TH</div>
+                    <div class="prize-icon" style="color:var(--ink-mute)"><svg class="icon">
+                        <use href="#i-headphones"></use>
+                      </svg></div>
+                    <div class="prize-name">Elite Earbuds</div>
+                  </div>
+                  <!-- copy 2 (seamless loop) -->
+                  <div class="prize-card first" aria-hidden="true">
+                    <div class="prize-rank r1">1ST</div>
+                    <div class="prize-icon" style="color:var(--gold)"><svg class="icon">
+                        <use href="#i-tv"></use>
+                      </svg></div>
+                    <div class="prize-name">50" Smart TV</div>
+                  </div>
+                  <div class="prize-card" aria-hidden="true">
+                    <div class="prize-rank r2">2ND</div>
+                    <div class="prize-icon" style="color:var(--silver)"><svg class="icon">
+                        <use href="#i-tablet"></use>
+                      </svg></div>
+                    <div class="prize-name">Pro Tablet</div>
+                  </div>
+                  <div class="prize-card" aria-hidden="true">
+                    <div class="prize-rank r3">3RD</div>
+                    <div class="prize-icon" style="color:var(--bronze)"><svg class="icon">
+                        <use href="#i-phone"></use>
+                      </svg></div>
+                    <div class="prize-name">Smartphone</div>
+                  </div>
+                  <div class="prize-card" aria-hidden="true">
+                    <div class="prize-rank r4">4–50TH</div>
+                    <div class="prize-icon" style="color:var(--ink-mute)"><svg class="icon">
+                        <use href="#i-headphones"></use>
+                      </svg></div>
+                    <div class="prize-name">Elite Earbuds</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div><!-- /ticket-pair -->
+
+          <!-- Contest Countdown Timer -->
+          <div class="contest-timer" id="contestTimerWrap">
+            <div class="contest-timer-header">
+              <div class="timer-line"></div>
+              <div class="timer-label">
+                <svg class="icon">
+                  <use href="#i-clock"></use>
+                </svg>
+                Contest Ends in
+              </div>
+              <div class="timer-line right"></div>
+            </div>
+            <div class="timer-blocks" id="timerBlocks">
+              <div class="timer-block">
+                <div class="timer-digits" id="t-days">00</div>
+                <div class="timer-unit">Days</div>
+              </div>
+              <div class="timer-colon">:</div>
+              <div class="timer-block">
+                <div class="timer-digits" id="t-hours">00</div>
+                <div class="timer-unit">Hours</div>
+              </div>
+              <div class="timer-colon">:</div>
+              <div class="timer-block">
+                <div class="timer-digits" id="t-min">00</div>
+                <div class="timer-unit">Min</div>
+              </div>
+              <div class="timer-colon">:</div>
+              <div class="timer-block">
+                <div class="timer-digits" id="t-sec">00</div>
+                <div class="timer-unit">Sec</div>
+              </div>
+            </div>
+            <div class="timer-ended" id="timerEnded" style="display:none">Contest Ended</div>
+          </div>
+
+          <!-- How to Conquer -->
+          <div class="card stepper-card">
+            <h2>How to Win</h2>
+            <div class="steps">
+              <div class="step">
+                <div class="step-line"></div>
+                <div class="step-icon"><svg class="icon">
+                    <use href="#i-share"></use>
+                  </svg></div>
+                <div>
+                  <h3>Share Your Link</h3>
+                  <p>Send your invite link or advisor code to friends, family and prospects to download Banksathi app
+                    link.</p>
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-line"></div>
+                <div class="step-icon"><svg class="icon">
+                    <use href="#i-hourglass"></use>
+                  </svg></div>
+                <div>
+                  <h3>They Sign Up</h3>
+                  <p>Your friend registers on BankSathi and completes their 1st earning of ₹500.</p>
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-icon"><svg class="icon">
+                    <use href="#i-money"></use>
+                  </svg></div>
+                <div>
+                  <h3>Earn Rewards</h3>
+                  <p>Get 10% commission + chance to win big prize this season.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Rules row -->
+          <div class="info-row" onclick="openSheet('rules')">
+            <div class="info-row-left">
+              <div class="info-row-icon" style="background:var(--marigold-soft); color:var(--marigold);">
+                <svg class="icon">
+                  <use href="#i-info"></use>
+                </svg>
+              </div>
+              <div>
+                <h3>Contest Rules</h3>
+                <p>Review participation requirements</p>
+              </div>
+            </div>
+            <svg class="icon chevron">
+              <use href="#i-chevron-right"></use>
+            </svg>
+          </div>
+
+          <!-- FAQ row -->
+          <div class="info-row" onclick="openSheet('faq')">
+            <div class="info-row-left">
+              <div class="info-row-icon" style="background:var(--sage-soft); color:var(--sage);">
+                <svg class="icon">
+                  <use href="#i-question"></use>
+                </svg>
+              </div>
+              <div>
+                <h3>FAQs</h3>
+                <p>Common questions answered</p>
+              </div>
+            </div>
+            <svg class="icon chevron">
+              <use href="#i-chevron-right"></use>
+            </svg>
+          </div>
+
+        </div>
+      </div>
+      <!-- END Contest -->
+
+      <!-- ══ LEADERBOARD TAB ══ -->
+      <div class="tab-panel" data-tab="leaderboard">
+        <div class="lb-wrap">
+
+          <!-- Podium -->
+          <div class="podium-bg">
+            <div class="podium-row" id="podium-container">
+              <!-- Podium will be rendered here by JavaScript -->
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          </div>
+
+          <!-- List -->
+          <div class="lb-list" id="lb-list">
+            <div class="lb-list-head">
+              <h3>Top Advisors</h3>
+              <span class="count">Total Referrals</span>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          </div>
+
+        </div>
+      </div>
+      <!-- END LEADERBOARD -->
+
+      <!-- ══ REFER TAB ══ -->
+      <div class="tab-panel" id="tab-refer">
+        <div class="refer-wrap">
+
+          <!-- Referral code -->
+          <!-- Referral code -->
+          <div class="code-card">
+            <div class="code-label">Your Referral Code</div>
+            <div class="code-value tnum" id="referal-code"></div>
+            <button class="copy-btn" onclick="location.hash='refer_now';">
+              <span class="si tg"><svg class="icon">
+                  <use href="#i-tg"></use>
+                </svg></span> Share
+            </button>
+          </div>
+
+          <!-- Share buttons -->
+          <!-- <div class="share-row">
+          <button class="share-btn" onclick="shareOnWhatsApp(); location.hash='refer_whatsapp';">
+            <span class="si wa"><svg class="icon"><use href="#i-wa"></use></svg></span>
+            <span>WhatsApp</span>
+          </button>
+          <button class="share-btn" onclick="shareOnTelegram(); location.hash='refer_telegram';">
+            <span class="si tg"><svg class="icon"><use href="#i-tg"></use></svg></span>
+            <span>Telegram</span>
+          </button>
+          <button class="share-btn" onclick="copyLink(); location.hash='refer_copy_link';">
+            <span class="si lk"><svg class="icon"><use href="#i-link"></use></svg></span>
+            <span>Copy Link</span>
+          </button>
+        </div> -->
+          <!-- 2nd -->
+
+
+          <!-- Earnings -->
+          <div class="earnings-row">
+            <!-- <div class="earnings-card pending">
+            <div class="l">Pending</div>
+            <div class="v tnum">₹1,250</div>
+            <div class="s">2 referrals in review</div>
+          </div>
+          <div class="earnings-card claimable">
+            <div class="l">Claimable</div>
+            <div class="v tnum">₹3,470</div>
+            <div class="s">Ready to withdraw</div>
+          </div> -->
+          </div>
+
+          <!-- Recent referrals -->
+          <div class="card refs-card">
+            <h3>Referrals</h3>
+            <div class="refs-list" id="refs-card-list">
+              <!-- Recent referrals will be rendered here by JavaScript -->
+
+            </div>
+
+          </div>
+        </div>
+        <!-- END REFER -->
+
+      </div>
+      <!-- END scroll area -->
+    </div>
+    <!-- END app -->
+
+    <!-- ══ FLOATING "YOU" BAR (Leaderboard tab only) — tap to open Recent Referrals ══ -->
+    <div class="user-card" id="user-card" role="button" tabindex="0" onclick="openSheet('referrals')"
+      onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openSheet('referrals');}"
+      aria-label="Your current position. Tap to view recent referrals.">
+      <div class="user-rank-pill tnum"><span class="hash">#</span><span id="user-rank">12</span></div>
+      <div class="user-avatar-disc" id="user-avatar-disc">R</div>
+      <div class="user-info">
+        <div class="name"><span class="you-mark">You ·</span><span id="user-name">Rakesh Sharma</span></div>
+        <div class="sub tnum" id="user-rank-text">Rank 12 of 500 · Tap for referrals</div>
+      </div>
+      <div class="user-pts-wrap">
+        <div class="user-pts-pill">
+          <span class="star">★</span>
+          <span class="v tnum" id="user-pts">68</span>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ══ FLOATING REFER NOW CTA (Contest tab only) ══ -->
+    <button class="refer-fab" id="referFab" onclick="location.hash='refer_now';" aria-label="Go to Refer section">
+      <svg class="icon">
+        <use href="#i-share"></use>
+      </svg>
+      <span>Refer Now &amp; Earn</span>
+    </button>
+
+    <!-- ══ OVERLAYS ══ -->
+    <div class="sheet-overlay" id="overlay" onclick="closeAllSheets()"></div>
+
+    <!-- ══ RULES SHEET ══ -->
+    <div class="bottom-sheet" id="sheet-rules">
+      <div class="sheet-handle" onclick="closeSheet('rules')"></div>
+      <div class="sheet-header">
+        <span class="sheet-title">Contest Rules</span>
+        <button class="sheet-close" onclick="closeSheet('rules')"><svg class="icon">
+            <use href="#i-x"></use>
+          </svg></button>
+      </div>
+      <div class="sheet-scroll">
+        <div class="rules-section-title">Champion Rewards</div>
+        <div class="rules-prizes">
+          <div class="rule-prize-card" style="border-color:rgba(184,134,11,0.3); background:var(--gold-soft);">
+            <div class="rule-prize-rank gold">1st Place</div>
+            <div class="rule-prize-name">50" Smart TV</div>
+            <div class="rule-prize-val gold tnum">₹25,000 – ₹35,000</div>
+          </div>
+          <div class="rule-prize-card">
+            <div class="rule-prize-rank">2nd Place</div>
+            <div class="rule-prize-name">Pro Tablet</div>
+            <div class="rule-prize-val tnum">₹12,000 – ₹15,000</div>
+          </div>
+          <div class="rule-prize-card">
+            <div class="rule-prize-rank">3rd Place</div>
+            <div class="rule-prize-name">Smartphone</div>
+            <div class="rule-prize-val tnum">₹8,000 – ₹10,000</div>
+          </div>
+          <div class="rule-prize-card">
+            <div class="rule-prize-rank">4th – 50th</div>
+            <div class="rule-prize-name">Elite Earbuds</div>
+            <div class="rule-prize-val tnum">Value ₹500</div>
+          </div>
+        </div>
+        <div class="divider"></div>
+        <div class="rules-section-title">Terms &amp; Conditions</div>
+        <div class="rule-item"><span class="rule-dot">●</span><span class="rule-text">All registered advisors are
+            eligible for the Referral Champion League.</span></div>
+        <div class="rule-item"><span class="rule-dot">●</span><span class="rule-text">A referral is 'Valid' only after
+            the referred partner earns at least ₹500 in payouts.</span></div>
+        <div class="rule-item"><span class="rule-dot">●</span><span class="rule-text">10% Commission is calculated on
+            referral earnings only.</span></div>
+        <div class="rule-item"><span class="rule-dot">●</span><span class="rule-text">Top 3 prizes require a minimum of
+            50 valid referrals during the contest.</span></div>
+        <div class="rule-item"><span class="rule-dot">●</span><span class="rule-text">Rewards are distributed
+            within 15 days of contest closure.</span></div>
+        <div class="rule-item"><span class="rule-dot">●</span><span class="rule-text">Any fraudulent activity will lead
+            to immediate disqualification.</span></div>
+        <button class="understand-btn" onclick="closeSheet('rules')">I Understand</button>
+      </div>
+    </div>
+
+    <!-- ══ FAQ SHEET ══ -->
+    <div class="bottom-sheet" id="sheet-faq">
+      <div class="sheet-handle" onclick="closeSheet('faq')"></div>
+      <div class="sheet-header">
+        <span class="sheet-title">Frequently Asked</span>
+        <button class="sheet-close" onclick="closeSheet('faq')"><svg class="icon">
+            <use href="#i-x"></use>
+          </svg></button>
+      </div>
+      <div class="sheet-scroll">
+        <div class="faq-item">
+          <div class="faq-q">What is the Referral Champion League?</div>
+          <div class="faq-a">A 3-month referral contest by BankSathi where you earn a flat 10% commission on every
+            referral's earnings, plus win exciting seasonal prizes.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">Is the 10% commission on top of my regular payout?</div>
+          <div class="faq-a">Yes — the 10% referral commission is an extra bonus on top of your regular lead payouts. It
+            doesn't replace anything.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">When is a referral considered valid?</div>
+          <div class="faq-a">A referral is valid when the referred partner earns a minimum of ₹500 through BankSathi.
+            Until then, it stays in "Pending or In-progress" status.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">How are leaderboard rank calculated?</div>
+          <div class="faq-a">Rank is calculated per valid referral. The exact breakdown depends on the referral's
+            earnings. Check the Contest Rules for the full breakdown.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">How do I claim my bonus?</div>
+          <div class="faq-a">Once your referral clears, the bonus moves from "Pending" to "Verified". You will receive a
+            confirmation call/whstapp/email notification from us.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ REFERRALS SHEET ══ -->
+    <div class="bottom-sheet" id="sheet-referrals">
+      <div class="sheet-handle" onclick="closeSheet('referrals')"></div>
+      <div class="sheet-header">
+        <span class="sheet-title"> Referrals</span>
+        <button class="sheet-close" onclick="closeSheet('referrals')"><svg class="icon">
+            <use href="#i-x"></use>
+          </svg></button>
+      </div>
+      <div class="sheet-scroll">
+        <p style="font-size:12.5px; color:var(--ink-mute); margin: -4px 0 14px; line-height:1.5;">
+          Your referrals and their verification status.
+        </p>
+
+
+
+
+
+        <div id="sheet-refs-list"></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      </div>
+    </div>
+
+    <script type="text/javascript">
+      // ── Tab switching ──
+      function resolveTabPanel(name) {
+        return document.getElementById('tab-' + name) || document.querySelector(`.tab-panel[data-tab="${name}"]`);
+      }
+
+      function initDynamicTabIds() {
+        document.querySelectorAll('.tab-panel[data-tab]').forEach(panel => {
+          panel.id = 'tab-' + panel.dataset.tab;
+        });
+      }
+
+      function showTab(name) {
+        document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+        document.querySelectorAll('.stab').forEach(b => b.classList.remove('active'));
+        const panel = resolveTabPanel(name);
+        const button = document.getElementById('stab-' + name);
+        if (panel) panel.classList.add('active');
+        if (button) button.classList.add('active');
+        const uc = document.getElementById('user-card');
+        if (uc) {
+          const isLeaderboard = (name === 'leaderboard');
+          uc.style.display = isLeaderboard ? '' : 'none';
+          // Re-trigger the rise animation when returning to the tab
+          if (isLeaderboard) {
+            uc.style.animation = 'none';
+            // Force reflow so the next set of styles is treated as a fresh animation
+            // eslint-disable-next-line no-unused-expressions
+            uc.offsetHeight;
+            uc.style.animation = '';
+          }
+        }
+        const fab = document.getElementById('referFab');
+        if (fab) fab.classList.toggle('visible', name === 'Contest');
+      }
+
+      // Initialize any tab panels that use dynamic data-tab values
+      initDynamicTabIds();
+
+      // ── Sheet management ──
+      const overlay = document.getElementById('overlay');
+      let activeSheet = null;
+
+      function openSheet(name) {
+        if (activeSheet) closeSheet(activeSheet, false);
+        activeSheet = name;
+        document.getElementById('sheet-' + name).classList.add('open');
+        overlay.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeSheet(name, resetActive = true) {
+        document.getElementById('sheet-' + name).classList.remove('open');
+        overlay.classList.remove('open');
+        document.body.style.overflow = '';
+        if (resetActive) activeSheet = null;
+      }
+
+      function closeAllSheets() {
+        if (activeSheet) closeSheet(activeSheet);
+      }
+
+      // ── Copy code ──
+      function copyCode() {
+        const code = document.getElementById('referal-code').textContent.trim();
+        navigator.clipboard.writeText(code).catch(() => { });
+        const btn = document.querySelector('.copy-btn');
+        const orig = btn.innerHTML;
+        btn.innerHTML = '<svg class="icon"><use href="#i-check"></use></svg> Copied';
+        btn.style.background = 'var(--sage)';
+        setTimeout(() => { btn.innerHTML = orig; btn.style.background = ''; }, 2000);
+      }
+
+      // ── Share buttons ──
+      const _shareText = 'Join BankSathi Referral Bazaar with my code ELITE-7X9Q and win amazing prizes! ';
+      const _shareUrl = window.location.href.split('#')[0];
+
+      function shareOnWhatsApp() {
+
+      }
+      function copyLink() {
+
+      }
+
+      function shareOnTelegram() {
+
+      }
+
+
+      // Initialise visibility for default tab (Contest)
+      document.getElementById('user-card').style.display = 'none';
+      const _initFab = document.getElementById('referFab');
+      if (_initFab) _initFab.classList.add('visible');
+
+      // ── Prize carousel: pause briefly on touch so users can read a card ──
+      (function () {
+        const carousel = document.getElementById('prizesCarousel');
+        if (!carousel) return;
+        let resumeTimer = null;
+        const pauseFor = (ms) => {
+          carousel.classList.add('paused');
+          clearTimeout(resumeTimer);
+          resumeTimer = setTimeout(() => carousel.classList.remove('paused'), ms);
+        };
+        carousel.addEventListener('touchstart', () => pauseFor(2500), { passive: true });
+        carousel.addEventListener('click', () => pauseFor(2500));
+      })();
+    </script>
+
+
+
+
+
+    <script type="text/javascript">
+
+      function avatarDataUri(initials, bg) {
+        const safeText = (initials || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='80' height='80'><rect width='80' height='80' fill='${bg}'/><text x='50%' y='56%' text-anchor='middle' font-family='Georgia,serif' font-size='28' font-weight='700' fill='%236B7280'>${safeText}</text></svg>`;
+        return `data:image/svg+xml;utf8,${encodeURIComponent(svg)}`;
+      }
+
+      function renderPodium(first_rank_data, second_rank_data, third_rank_data) {
+        const items = [first_rank_data, second_rank_data, third_rank_data];
+        const colors = { 0: '#F4E6BF', 1: '#F2EBDA', 2: '#F5E4D3' };
+        const renderOrder = [1, 0, 2];
+        const positionLabels = [2, 1, 3];
+
+        let html = '';
+        renderOrder.forEach((itemIdx, renderIdx) => {
+          const item = items[itemIdx];
+          const pos = positionLabels[renderIdx];
+          const posClass = { 1: 'p1', 2: 'p2', 3: 'p3' }[pos];
+          if (item && Object.keys(item).length > 0) {
+            const name = item.first_name || item.name || '—';
+            const points = item.point ?? 0;
+            const initials = (name.split(' ').map(s => s[0]).join('').slice(0, 2) || 'U').toUpperCase();
+            const avatarSrc = avatarDataUri(initials, colors[itemIdx]);
+            let slot = '<div class="podium-slot">';
+            if (pos === 1) slot += '<div class="podium-crown"><svg class="icon fill"><use href="#i-crown"></use></svg></div>';
+            slot += `
+                        <div class="podium-avatar ${posClass}"><img src="${avatarSrc}" alt="${name}"/></div>
+                        <div class="podium-name">${name}</div>
+                        <div class="podium-pts ${posClass} tnum">${points} PTS</div>
+                        <div class="podium-base ${posClass}"><span class="podium-num ${posClass} tnum">${pos}</span></div>
+                    </div>`;
+            html += slot;
+          }
+        });
+
+        ['podium-container', 'podium-container-refer'].forEach(id => {
+          const el = document.getElementById(id);
+          if (el) el.innerHTML = html;
+        });
+      }
+      // Initialize with default values
+      // Initialize with default values
+      let progressData = {
+        cards: { leads: 0, approved: 0, bonus: '₹0' },
+        loans: { leads: 0, approved: 0, bonus: '₹0', disbursal: '₹0' }
+      };
+
+      // Fetch progress data from API
+      async function fetchProgressData() {
+        try {
+          const urlParams = new URLSearchParams(window.location.search);
+          const uVal = urlParams.get('u');
+
+          if (!uVal) {
+            console.log('No "u" parameter found in URL, skipping API call.');
+            return;
+          }
+
+          // Call API with hkg parameter from u
+          // const apiUrl = `http://127.0.0.1:8000/api/refer_contest_data_api?hkg=${encodeURIComponent(uVal)}`;
+
+          const apiUrl = `https://crm.banksathi.com/api/refer_contest_data_api?hkg=${encodeURIComponent(uVal)}`;
+
+
+
+
+
+          const response = await fetch(apiUrl);
+
+          if (!response.ok) {
+            throw new Error(`API call failed: ${response.status}`);
+          }
+
+          const apiData = await response.json();
+
+
+
+          console.log('API response data:', apiData);
+
+
+          const uerFirstName = apiData.advisor.first_name || "";
+          const userRank = apiData.advisor.individual_rank || 0;
+          const userReferrals = apiData.advisor.individual_point || 0;
+          const totalParticipants = apiData.advisor.total_participants || 0;
+          const referalCode = apiData.advisor.user_code || '';
+
+          document.getElementById('referal-code').textContent = referalCode;
+          document.getElementById('user-rank').textContent = userRank;
+          document.getElementById('user-avatar-disc').textContent = uerFirstName.charAt(0).toUpperCase();
+          document.getElementById('user-name').textContent = uerFirstName;
+          document.getElementById('user-rank-text').textContent = `Rank ${userRank} of ${totalParticipants} · Tap for referrals`;
+          document.getElementById('user-pts').textContent = userReferrals;
+
+
+          const topTen = apiData.advisor.top_ten_refer_contest || [];
+          renderPodium(topTen[0] || {}, topTen[1] || {}, topTen[2] || {});
+
+
+          const RemainingAfterTopThree = topTen.slice(3);
+
+          const lbList = document.getElementById('lb-list');
+          RemainingAfterTopThree.forEach((advisor, index) => {
+            const rank = index + 4;
+            const name = advisor.first_name || '';
+            const initials = name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
+            const referrals = advisor.point ?? advisor.referrals ?? 0;
+            const avatarSvg = `data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='40'><rect width='40' height='40' fill='%23F2EBDA'/><text x='50%25' y='56%25' text-anchor='middle' font-family='Georgia,serif' font-size='15' font-weight='700' fill='%238A7B66'>${initials}</text></svg>`;
+            const item = document.createElement('div');
+            item.className = 'lb-item';
+            item.innerHTML = `
+                    <div class="lb-rank tnum">${rank}</div>
+                    <div class="lb-avatar"><img src="${avatarSvg}" alt=""/></div>
+                    <div class="lb-name">${name}</div>
+                    <div class="lb-pts tnum">${referrals}</div>
+                  `;
+            lbList.appendChild(item);
+          });
+
+
+
+          const referalList = apiData.advisor.referral_list || [];
+
+          const refCardList = document.getElementById('refs-card-list');
+          const sheetRefsList = document.getElementById('sheet-refs-list');
+
+          referalList.forEach(ref => {
+            const name = ref.full_name || '—';
+            const isVerified = (ref.status || '').toLowerCase() === 'verified';
+            const badgeClass = isVerified ? 'verified' : 'pending';
+            const badgeIcon = isVerified ? '#i-check' : '#i-clock';
+            const badgeLabel = isVerified ? 'Verified' : 'Pending';
+            const earning = ref.total_earning ? `₹${ref.total_earning}` : '';
+
+            const innerHtml = `
+                    <div class="ref-left">
+                      <div class="ref-avatar"><svg class="icon" style="color:var(--ink-mute)"><use href="#i-user"></use></svg></div>
+                      <div>
+                        <div class="ref-name">${name}</div>
+                        
+                      </div>
+                    </div>
+                    <span class="ref-badge ${badgeClass}"><svg class="icon"><use href="${badgeIcon}"></use></svg>${badgeLabel}</span>
+                  `;
+
+            if (refCardList) {
+              const item = document.createElement('div');
+              item.className = 'ref-item';
+              item.innerHTML = innerHtml;
+              refCardList.appendChild(item);
+            }
+
+            if (sheetRefsList) {
+              const sheetItem = document.createElement('div');
+              sheetItem.className = 'sheet-ref-item';
+              sheetItem.innerHTML = innerHtml;
+              sheetRefsList.appendChild(sheetItem);
+            }
+          });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        } catch (error) {
+          console.error('Error fetching progress data:', error);
+          // Alert user if running locally, as CORS usually blocks file:// requests
+          if (window.location.protocol === 'file:') {
+            alert('Unable to fetch data: Browser security (CORS) blocked the API request because you are opening the file directly. To see the data, please try running this using a local server (e.g., VS Code Live Server or "python3 -m http.server").');
+          }
+        }
+      }
+
+
+
+
+
+
+
+
+
+
+
+
+      // Fetch data on page load
+      window.addEventListener('load', fetchProgressData);
+
+      // ── Contest Countdown Timer ──
+      (function () {
+        // IST = UTC+5:30  →  offset = 5.5 * 60 * 60 * 1000 ms
+        const IST_OFFSET = 5.5 * 60 * 60 * 1000;
+
+        // Start: 1 Jun 2026 00:00 IST
+        const START_IST = new Date('2026-06-01T00:00:00+05:30').getTime();
+        // End:  30 Aug 2026 23:59:59 IST (i.e. midnight of 31 Aug IST)
+        const END_IST = new Date('2026-08-31T00:00:00+05:30').getTime();
+
+        const elBlocks = document.getElementById('timerBlocks');
+        const elEnded = document.getElementById('timerEnded');
+        const elHeader = document.querySelector('.contest-timer-header .timer-label');
+        const elDays = document.getElementById('t-days');
+        const elHours = document.getElementById('t-hours');
+        const elMin = document.getElementById('t-min');
+        const elSec = document.getElementById('t-sec');
+
+        function pad(n) { return String(n).padStart(2, '0'); }
+
+        function tick() {
+          const now = Date.now();
+
+          if (now >= END_IST) {
+            // Contest over
+            elBlocks.style.display = 'none';
+            elEnded.style.display = '';
+            return;
+          }
+
+          let target;
+          if (now < START_IST) {
+            // Not started yet – count down to start
+            if (elHeader) elHeader.childNodes[elHeader.childNodes.length - 1].textContent = ' Contest Starts in';
+            target = START_IST;
+          } else {
+            // Contest active – count down to end
+            if (elHeader) elHeader.childNodes[elHeader.childNodes.length - 1].textContent = ' Contest Ends in';
+            target = END_IST;
+          }
+
+          const diff = target - now;
+          const days = Math.floor(diff / 86400000);
+          const hours = Math.floor((diff % 86400000) / 3600000);
+          const mins = Math.floor((diff % 3600000) / 60000);
+          const secs = Math.floor((diff % 60000) / 1000);
+
+          elDays.textContent = pad(days);
+          elHours.textContent = pad(hours);
+          elMin.textContent = pad(mins);
+          elSec.textContent = pad(secs);
+
+          elBlocks.style.display = '';
+          elEnded.style.display = 'none';
+        }
+
+        tick();
+        setInterval(tick, 1000);
+      })();
+
+      // Prizes Popup Animation
+      (function initPrizePop() {
+        const carousel = document.querySelector('.prizes-carousel');
+        const track = document.querySelector('.prizes-track');
+        const cards = Array.from(document.querySelectorAll('.prize-card'));
+
+        if (!carousel || !track || cards.length === 0) return;
+
+        function checkCenter() {
+          if (track.style.animationPlayState === 'paused') {
+            requestAnimationFrame(checkCenter);
+            return;
+          }
+
+          const carouselRect = carousel.getBoundingClientRect();
+          // Do not animate if tab is hidden
+          if (carouselRect.width === 0) {
+            requestAnimationFrame(checkCenter);
+            return;
+          }
+
+          const center = carouselRect.left + carouselRect.width / 2;
+
+          cards.forEach(card => {
+            // Ignore hidden cards
+            if (card.offsetWidth === 0) return;
+
+            const cardRect = card.getBoundingClientRect();
+            const cardCenter = cardRect.left + cardRect.width / 2;
+
+            // Wait for it to move away before allowing it to pop again
+            if (card.dataset.popped === 'true') {
+              if (Math.abs(cardCenter - center) > 40) {
+                card.dataset.popped = 'false';
+              }
+              return;
+            }
+
+            // Trigger exactly at the center (within 2px tolerance)
+            if (Math.abs(cardCenter - center) <= 2) {
+              card.dataset.popped = 'true';
+
+              // 1. Pause track
+              track.style.animationPlayState = 'paused';
+
+              // 2. Create clone to bypass parent overflow masks
+              const clone = card.cloneNode(true);
+              const appContainer = document.getElementById('app');
+              const appRect = appContainer.getBoundingClientRect();
+
+              clone.style.position = 'absolute';
+              clone.style.left = (cardRect.left - appRect.left) + 'px';
+              clone.style.top = (cardRect.top - appRect.top) + 'px';
+              clone.style.width = cardRect.width + 'px';
+              clone.style.height = cardRect.height + 'px';
+              clone.style.margin = '0';
+              clone.style.zIndex = '30';
+              clone.style.transition = 'transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease';
+              clone.style.transformOrigin = 'center center';
+
+              appContainer.appendChild(clone);
+
+              // 3. Hide original to avoid visual doubling
+              card.style.opacity = '0';
+
+              // 4. Animate pop
+              requestAnimationFrame(() => {
+                clone.style.transform = 'scale(1.25)';
+                clone.style.boxShadow = '0 25px 50px rgba(0,0,0,0.2)';
+              });
+
+              // 5. Wait 1000ms then unpop
+              setTimeout(() => {
+                clone.style.transform = 'scale(1)';
+                clone.style.boxShadow = 'var(--shadow-sm)';
+
+                // Wait for CSS transition (300ms) to finish
+                setTimeout(() => {
+                  clone.remove();
+                  card.style.opacity = '1';
+                  track.style.animationPlayState = '';
+                }, 300);
+              }, 1000);
+            }
+          });
+
+          requestAnimationFrame(checkCenter);
+        }
+
+        requestAnimationFrame(checkCenter);
+      })();
+
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Removed Cloudflare Rocket Loader and Analytics to enable fully operational local viewing -->
+</body>
+
+</html>
