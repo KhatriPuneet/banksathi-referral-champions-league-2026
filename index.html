@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Roboto:ital,wght@0,300;0,400;0,500;0,700;0,900;1,300;1,400;1,500;1,700;1,900&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Roboto:ital,wght@0,300;0,400;0,500;0,700;0,900;1,300;1,400;1,500;1,700;1,900&display=swap"
     rel="stylesheet" />
 
   <style>
@@ -287,7 +287,7 @@
       position: relative;
       overflow: hidden;
       border-radius: 18px;
-      background: url('RCL_LP_Banner.svg') no-repeat center/contain;
+      background: url('RCL_banner_image.png') no-repeat center/contain;
       aspect-ratio: 864 / 576;
       border: 1px solid rgba(126, 73, 203, 0.3);
       box-shadow: var(--shadow-lg);
@@ -492,31 +492,32 @@
       min-width: 156px;
       border-radius: 14px;
       padding: 16px 14px;
-      background: var(--paper);
-      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.9) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.4);
       flex-shrink: 0;
       position: relative;
       display: flex;
       flex-direction: column;
-      box-shadow: var(--shadow-sm);
+      align-items: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      text-align: center;
     }
 
     .prize-card.first {
-      background: linear-gradient(180deg, #FBF1D8, var(--paper));
-      border-color: rgba(184, 134, 11, 0.4);
+      background: linear-gradient(180deg, rgba(255, 245, 214, 0.4) 0%, rgba(255, 245, 214, 0.95) 100%);
+      border: 1px solid rgba(245, 207, 107, 0.5);
       box-shadow: 0 4px 16px rgba(184, 134, 11, 0.15);
     }
 
     .prize-rank {
-      position: absolute;
-      top: 10px;
-      right: 10px;
+      display: inline-block;
       font-family: 'Roboto', sans-serif;
       font-size: 9.5px;
       font-weight: 700;
-      padding: 4px 9px;
+      padding: 4px 10px;
       border-radius: 999px;
       letter-spacing: 0.08em;
+      margin-bottom: 6px;
     }
 
     .prize-rank.r1 {
@@ -539,22 +540,35 @@
       color: var(--ivory);
     }
 
-    .prize-icon {
-      font-size: 32px;
-      height: 56px;
+    .prize-image-wrap {
+      height: 110px;
       display: flex;
       align-items: center;
       justify-content: center;
       margin-top: 4px;
+      margin-bottom: 10px;
+      width: 100%;
+    }
+
+    .prize-img {
+      max-height: 100%;
+      max-width: 100%;
+      object-fit: contain;
+      display: block;
+      transition: transform 0.3s ease;
+    }
+
+    .prize-card:hover .prize-img {
+      transform: scale(1.08);
     }
 
     .prize-name {
       font-family: 'Poppins', sans-serif;
       font-weight: 600;
-      font-size: 15px;
-      color: var(--ink);
+      font-size: 14px;
+      color: #351460;
       letter-spacing: -0.01em;
-      margin-bottom: 4px;
+      margin-top: auto;
     }
 
 
@@ -622,13 +636,14 @@
     }
 
 
-    /* Prizes container card */
     .prizes-container-card {
       padding: 16px 0 14px;
       overflow: hidden;
       position: relative;
       border-top-left-radius: 16px;
       border-top-right-radius: 16px;
+      background: linear-gradient(180deg, #522785 0%, #7E49CB 50%, #EADCF8 100%) !important;
+      border: 1px solid var(--marigold-soft);
     }
 
     .prizes-container-card .section-head {
@@ -1018,7 +1033,7 @@
       background-size: 200% 200%;
       box-shadow: none;
       animation: fab-float 3s ease-in-out infinite, fab-shimmer 4s ease-in-out infinite;
-      transition: transform 0.15s ease, box-shadow 0.2s ease;
+      transition: transform 0.35s ease, box-shadow 0.30s ease;
     }
 
     .refer-fab.visible {
@@ -1057,17 +1072,15 @@
       left: -150%;
       width: 150%;
       height: 100%;
-      background: linear-gradient(
-        115deg,
-        rgba(255, 255, 255, 0) 35%,
-        rgba(255, 255, 255, 0.45) 48%,
-        rgba(255, 255, 255, 0.75) 50%,
-        rgba(255, 255, 255, 0.45) 52%,
-        rgba(255, 255, 255, 0) 65%
-      );
+      background: linear-gradient(115deg,
+          rgba(255, 255, 255, 0) 35%,
+          rgba(255, 255, 255, 0.45) 48%,
+          rgba(255, 255, 255, 0.75) 50%,
+          rgba(255, 255, 255, 0.45) 52%,
+          rgba(255, 255, 255, 0) 65%);
       pointer-events: none;
       border-radius: 999px;
-      animation: refer-fab-shine 2.5s infinite ease-in-out;
+      animation: refer-fab-shine 4s infinite ease-in-out;
     }
 
     .refer-fab.visible::before {
@@ -1115,7 +1128,9 @@
       0% {
         left: -150%;
       }
-      50%, 100% {
+
+      50%,
+      100% {
         left: 150%;
       }
     }
@@ -2119,6 +2134,87 @@
       fill: currentColor;
       stroke: none;
     }
+
+    /* ── Live Ticker Styles (Pill Design) ── */
+    .live-ticker-container {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      margin: 8px 0 16px;
+    }
+
+    .live-ticker-wrap {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: #FFFFFF;
+      border: 1.5px solid #D1E7DD;
+      border-radius: 999px;
+      padding: 10px 22px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      font-size: 13px;
+      color: #2b303a;
+      max-width: 90%;
+    }
+
+    .live-ticker-pulse {
+      width: 8px;
+      height: 8px;
+      background-color: #DC3545;
+      border-radius: 50%;
+      display: inline-block;
+      flex-shrink: 0;
+      animation: ticker-dot-pulse 1.8s infinite ease-in-out;
+    }
+
+    .live-ticker-content-container {
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    #live-ticker-content {
+      display: inline-block;
+      transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.25s ease-in-out;
+      will-change: transform, opacity;
+    }
+
+    #live-ticker-content.slide-out {
+      transform: translateY(-16px);
+      opacity: 0;
+    }
+
+    #live-ticker-content.slide-in-prep {
+      transition: none !important;
+      transform: translateY(16px);
+      opacity: 0;
+    }
+
+    @keyframes ticker-dot-pulse {
+      0% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.5);
+      }
+      70% {
+        transform: scale(1.05);
+        box-shadow: 0 0 0 6px rgba(220, 53, 69, 0);
+      }
+      100% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(220, 53, 69, 0);
+      }
+    }
+
+    .animate-pulse {
+      animation: ticker-text-glow 1.5s ease-in-out;
+    }
+
+    @keyframes ticker-text-glow {
+      0% { opacity: 0.85; }
+      50% { opacity: 1; }
+      100% { opacity: 0.85; }
+    }
   </style>
 </head>
 
@@ -2250,7 +2346,7 @@
           <!-- Lifetime + Prizes ticket pair -->
           <div class="ticket-pair">
 
-            /* Lifetime Reward card */
+            <!-- Lifetime Reward card -->
             <div class="card card-dark-purple lifetime-card">
               <div class="bg-stars">
                 <svg width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none">
@@ -2268,7 +2364,7 @@
                     <path
                       d="M10 0L0 4V11C0 17.55 4.25 23.47 10 25C15.75 23.47 20 17.55 20 11V4L10 0ZM8 18L3 13L4.41 11.59L8 15.17L15.59 7.58L17 9L8 18Z" />
                   </svg>
-                  Refer & Earn for Lifetime
+                  Refer BankSathi app & Earn Lifetime
                 </span>
               </div>
               <div class="lifetime-value">10<span class="pct">%</span> Commission</div>
@@ -2298,66 +2394,77 @@
                   <!-- copy 1 -->
                   <div class="prize-card first">
                     <div class="prize-rank r1">1ST</div>
-                    <div class="prize-icon" style="color:var(--gold)"><svg class="icon">
-                        <use href="#i-tv"></use>
-                      </svg></div>
+                    <div class="prize-image-wrap">
+                      <img src="50tv..png" alt="50&quot; Smart TV" class="prize-img" />
+                    </div>
                     <div class="prize-name">50" Smart TV</div>
                   </div>
                   <div class="prize-card">
                     <div class="prize-rank r2">2ND</div>
-                    <div class="prize-icon" style="color:var(--silver)"><svg class="icon">
-                        <use href="#i-tablet"></use>
-                      </svg></div>
-                    <div class="prize-name">Pro Tablet</div>
+                    <div class="prize-image-wrap">
+                      <img src="earbuds.png" alt="Elite Earbuds" class="prize-img" />
+                    </div>
+                    <div class="prize-name">Elite Earbuds</div>
                   </div>
                   <div class="prize-card">
                     <div class="prize-rank r3">3RD</div>
-                    <div class="prize-icon" style="color:var(--bronze)"><svg class="icon">
-                        <use href="#i-phone"></use>
-                      </svg></div>
-                    <div class="prize-name">Smartphone</div>
+                    <div class="prize-image-wrap">
+                      <img src="tablet.png" alt="Pro Tablet" class="prize-img" />
+                    </div>
+                    <div class="prize-name">Pro Tablet</div>
                   </div>
                   <div class="prize-card">
                     <div class="prize-rank r4">4–50TH</div>
-                    <div class="prize-icon" style="color:var(--ink-mute)"><svg class="icon">
-                        <use href="#i-headphones"></use>
-                      </svg></div>
-                    <div class="prize-name">Elite Earbuds</div>
+                    <div class="prize-image-wrap">
+                      <img src="smartphone..png" alt="Smartphone" class="prize-img" />
+                    </div>
+                    <div class="prize-name">Smartphone</div>
                   </div>
                   <!-- copy 2 (seamless loop) -->
                   <div class="prize-card first" aria-hidden="true">
                     <div class="prize-rank r1">1ST</div>
-                    <div class="prize-icon" style="color:var(--gold)"><svg class="icon">
-                        <use href="#i-tv"></use>
-                      </svg></div>
+                    <div class="prize-image-wrap">
+                      <img src="50tv..png" alt="50&quot; Smart TV" class="prize-img" />
+                    </div>
                     <div class="prize-name">50" Smart TV</div>
                   </div>
                   <div class="prize-card" aria-hidden="true">
                     <div class="prize-rank r2">2ND</div>
-                    <div class="prize-icon" style="color:var(--silver)"><svg class="icon">
-                        <use href="#i-tablet"></use>
-                      </svg></div>
-                    <div class="prize-name">Pro Tablet</div>
+                    <div class="prize-image-wrap">
+                      <img src="earbuds.png" alt="Elite Earbuds" class="prize-img" />
+                    </div>
+                    <div class="prize-name">Elite Earbuds</div>
                   </div>
                   <div class="prize-card" aria-hidden="true">
                     <div class="prize-rank r3">3RD</div>
-                    <div class="prize-icon" style="color:var(--bronze)"><svg class="icon">
-                        <use href="#i-phone"></use>
-                      </svg></div>
-                    <div class="prize-name">Smartphone</div>
+                    <div class="prize-image-wrap">
+                      <img src="tablet.png" alt="Pro Tablet" class="prize-img" />
+                    </div>
+                    <div class="prize-name">Pro Tablet</div>
                   </div>
                   <div class="prize-card" aria-hidden="true">
                     <div class="prize-rank r4">4–50TH</div>
-                    <div class="prize-icon" style="color:var(--ink-mute)"><svg class="icon">
-                        <use href="#i-headphones"></use>
-                      </svg></div>
-                    <div class="prize-name">Elite Earbuds</div>
+                    <div class="prize-image-wrap">
+                      <img src="smartphone..png" alt="Smartphone" class="prize-img" />
+                    </div>
+                    <div class="prize-name">Smartphone</div>
                   </div>
                 </div>
               </div>
             </div>
-
           </div><!-- /ticket-pair -->
+
+          <!-- Live Activity Ticker -->
+          <div class="live-ticker-container">
+            <div class="live-ticker-wrap">
+              <span class="live-ticker-pulse"></span>
+              <div class="live-ticker-content-container">
+                <div id="live-ticker-content">
+                  <span class="animate-pulse">Suresh from Jaipur just earned ₹800</span>
+                </div>
+              </div>
+            </div>
+          </div>
 
           <!-- Contest Countdown Timer -->
           <div class="contest-timer" id="contestTimerWrap">
@@ -3237,6 +3344,80 @@
         requestAnimationFrame(checkCenter);
       })();
 
+      // ── Live Activity Ticker Logic ──
+      (function() {
+        const cities = [
+          "Mumbai", "Delhi", "Bengaluru", "Hyderabad", "Chennai", "Kolkata", "Pune", 
+          "Ahmedabad", "Jaipur", "Lucknow", "Surat", "Kanpur", "Nagpur", "Indore", 
+          "Bhopal", "Patna", "Chandigarh", "Kochi", "Thiruvananthapuram", "Visakhapatnam", 
+          "Coimbatore", "Mysuru", "Vadodara", "Nashik", "Rajkot", "Guwahati", 
+          "Ranchi", "Bhubaneswar", "Amritsar", "Srinagar"
+        ];
+        
+        const namesSet1 = [
+          "Aarav", "Ananya", "Vivaan", "Diya", "Arjun", "Meera", "Rohan", "Kavya", 
+          "Aditya", "Priya", "Karthik", "Sneha", "Rahul", "Pooja", "Ishaan", "Aditi", 
+          "Siddharth", "Neha", "Manav", "Ritika", "Harsh", "Nandini", "Akash", "Shreya", 
+          "Dev", "Tanvi", "Abhishek", "Ira", "Yash", "Simran", "Nikhil", "Anushka", 
+          "Pranav", "Madhuri", "Varun", "Rhea", "Aman", "Sanjana", "Krishna", "Ishita", 
+          "Gaurav", "Ayesha", "Chirag", "Lavanya", "Mohit", "Komal", "Reyansh", "Farah", 
+          "Tarun", "Bhavna"
+        ];
+        
+        const namesSet2 = [
+          "Rudra", "Aarohi", "Vedant", "Manya", "Atharv", "Zoya", "Dhruv", "Palak", 
+          "Lakshya", "Niharika", "Omkar", "Suhani", "Ritesh", "Khushi", "Ayaan", "Muskaan", 
+          "Tanishq", "Ruchi", "Parth", "Trisha", "Samar", "Anvi", "Kunal", "Pallavi", 
+          "Vikram", "Esha", "Raghav", "Juhi", "Naveen", "Harleen", "Roshan", "Deepika", 
+          "Jayesh", "Mitali", "Saket", "Heena", "Uday", "Purnima", "Rajat", "Shruti", 
+          "Kabir", "Apeksha", "Sameer", "Vidhi", "Aniket", "Saloni", "Hemant", "Nisha", 
+          "Bhavesh", "Tanya"
+        ];
+
+        function getRandomElement(arr) {
+          return arr[Math.floor(Math.random() * arr.length)];
+        }
+
+        function generateMessage() {
+          const city = getRandomElement(cities);
+          const isSet1First = Math.random() < 0.5;
+          const name1 = getRandomElement(namesSet1);
+          const name2 = getRandomElement(namesSet2);
+          
+          if (isSet1First) {
+            return `${name1} from ${city} referred ${name2}`;
+          } else {
+            return `${name2} from ${city} referred ${name1}`;
+          }
+        }
+
+        const tickerElement = document.getElementById('live-ticker-content');
+        
+        // Set first message immediately
+        if (tickerElement) {
+          tickerElement.innerHTML = `<span class="animate-pulse">${generateMessage()}</span>`;
+        }
+        
+        setInterval(() => {
+          if (tickerElement) {
+            // Slide out upwards
+            tickerElement.classList.add('slide-out');
+            
+            setTimeout(() => {
+              // Snap to bottom instantly while invisible
+              tickerElement.classList.remove('slide-out');
+              tickerElement.classList.add('slide-in-prep');
+              tickerElement.innerHTML = `<span class="animate-pulse">${generateMessage()}</span>`;
+              
+              // Force reflow
+              tickerElement.offsetHeight;
+              
+              // Slide in to center from bottom
+              tickerElement.classList.remove('slide-in-prep');
+            }, 250);
+          }
+        }, 2000);
+      })();
     </script>
 
 
