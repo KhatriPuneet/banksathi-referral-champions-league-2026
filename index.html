@@ -5,12 +5,12 @@
   <meta charset="utf-8" />
   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
   <meta name="theme-color" content="#F4F1F8" />
-  <title>BankSathi · Referral Champion League</title>
+  <title>BankSathi · Referral Champions League</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,400;9..144,500;9..144,600;9..144,700;9..144,800;9..144,900&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Roboto:ital,wght@0,300;0,400;0,500;0,700;0,900;1,300;1,400;1,500;1,700;1,900&display=swap"
     rel="stylesheet" />
 
   <style>
@@ -45,7 +45,7 @@
 
       /* "marigold" slot now carries BankSathi's signature PURPLE.
        Variable names retained for code-stability; meaning is "brand primary". */
-      --marigold: #401B78;
+      --marigold: #6736b0;
       /* deep royal purple — primary brand */
       --marigold-2: #6030A0;
       /* mid purple — gradients, highlights */
@@ -81,7 +81,7 @@
       height: 100%;
       background: var(--ivory);
       color: var(--ink);
-      font-family: 'DM Sans', system-ui, sans-serif;
+      font-family: 'Roboto', system-ui, sans-serif;
       font-size: 15px;
       line-height: 1.45;
       overflow-x: hidden;
@@ -141,7 +141,7 @@
     }
 
     .topbar .brand-name {
-      font-family: 'Fraunces', serif;
+      font-family: 'Poppins', sans-serif;
       font-weight: 800;
       font-size: 14px;
       font-variation-settings: "opsz" 144, "SOFT" 50;
@@ -150,7 +150,7 @@
     }
 
     .topbar .brand-tag {
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'Roboto', sans-serif;
       font-weight: 500;
       font-size: 12px;
       color: var(--marigold);
@@ -185,7 +185,7 @@
       cursor: pointer;
       transition: all 0.25s ease;
       background: transparent;
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'Roboto', sans-serif;
       font-weight: 600;
       font-size: 12px;
       letter-spacing: 0.02em;
@@ -213,6 +213,7 @@
     /* ── Tab panels ── */
     .tab-panel {
       display: none;
+      position: relative;
     }
 
     .tab-panel.active {
@@ -232,6 +233,47 @@
       border-color: rgba(126, 73, 203, 0.25);
     }
 
+    .card-dark-purple {
+      background: linear-gradient(135deg, #522785 0%, #351460 100%);
+      border-color: var(--marigold-soft);
+    }
+
+    .card-dark-purple .lifetime-label {
+      color: #D8B4FE;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 600;
+    }
+
+    .card-dark-purple .lifetime-value {
+      color: #FFFFFF;
+    }
+
+    .card-dark-purple .section-head h2 {
+      color: #FFFFFF;
+    }
+
+    .card-dark-purple .section-head .hint {
+      color: #D8B4FE;
+    }
+
+    .card-dark-purple .lifetime-sub {
+      color: #D8B4FE;
+      opacity: 0.9;
+    }
+
+    .card-dark-purple .bg-stars {
+      position: absolute;
+      right: -10px;
+      top: 0;
+      bottom: 0;
+      width: 140px;
+      pointer-events: none;
+      opacity: 0.15;
+      color: #D8B4FE;
+    }
+
     /* ── Contest tab ── */
     .Contest-wrap {
       padding: 16px 16px 96px;
@@ -245,39 +287,14 @@
       position: relative;
       overflow: hidden;
       border-radius: 18px;
-      background: linear-gradient(135deg, #2A1248 0%, #1B0E36 100%);
-      color: var(--ivory);
-      padding: 26px 22px 24px;
+      background: url('RCL_LP_Banner.svg') no-repeat center/contain;
+      aspect-ratio: 864 / 576;
       border: 1px solid rgba(126, 73, 203, 0.3);
       box-shadow: var(--shadow-lg);
     }
 
-    /* Marigold petal motif (decorative SVG via radial gradients) */
-    .season-banner::before {
-      content: "";
-      position: absolute;
-      right: -40px;
-      top: -40px;
-      width: 180px;
-      height: 180px;
-      background:
-        radial-gradient(circle at 30% 30%, rgba(126, 73, 203, 0.35), transparent 55%),
-        radial-gradient(circle at 70% 60%, rgba(184, 134, 11, 0.25), transparent 55%);
-      border-radius: 50%;
-      filter: blur(2px);
-    }
-
-    .season-banner::after {
-      content: "❀";
-      position: absolute;
-      right: 16px;
-      top: 14px;
-      font-size: 18px;
-      color: rgba(126, 73, 203, 0.6);
-    }
-
     .season-eyebrow {
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'Roboto', sans-serif;
       font-size: 10px;
       font-weight: 600;
       color: var(--marigold-2);
@@ -315,7 +332,7 @@
     }
 
     .season-title {
-      font-family: 'Fraunces', serif;
+      font-family: 'Poppins', sans-serif;
       font-weight: 700;
       font-size: 30px;
       font-variation-settings: "opsz" 144, "SOFT" 30;
@@ -333,7 +350,7 @@
     }
 
     .season-meta {
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'Roboto', sans-serif;
       font-size: 12px;
       color: rgba(244, 241, 248, 0.7);
       position: relative;
@@ -342,7 +359,7 @@
 
     /* Lifetime Reward card */
     .lifetime-card {
-      padding: 14px 18px;
+      padding: 14px 18px 28px 18px;
       position: relative;
       overflow: hidden;
     }
@@ -355,7 +372,7 @@
     }
 
     .lifetime-label {
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'Roboto', sans-serif;
       font-weight: 500;
       font-size: 11px;
       color: var(--ink-mute);
@@ -367,7 +384,7 @@
       display: inline-flex;
       align-items: center;
       gap: 5px;
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'Roboto', sans-serif;
       font-size: 10px;
       font-weight: 600;
       padding: 5px 10px;
@@ -388,7 +405,7 @@
     }
 
     .lifetime-value {
-      font-family: 'Fraunces', serif;
+      font-family: 'Poppins', sans-serif;
       font-weight: 700;
       font-size: 28px;
       font-variation-settings: "opsz" 144, "SOFT" 40;
@@ -406,7 +423,6 @@
     .lifetime-sub {
       font-size: 13px;
       color: var(--ink-2);
-      max-width: 240px;
     }
 
     /* ── Section heading ── */
@@ -419,7 +435,7 @@
     }
 
     .section-head h2 {
-      font-family: 'Fraunces', serif;
+      font-family: 'Poppins', sans-serif;
       font-weight: 700;
       font-size: 28px;
       font-variation-settings: "opsz" 144, "SOFT" 40;
@@ -440,8 +456,6 @@
       position: relative;
       overflow: hidden;
       padding-bottom: 4px;
-      -webkit-mask-image: linear-gradient(to right, transparent 0, #000 24px, #000 calc(100% - 24px), transparent 100%);
-      mask-image: linear-gradient(to right, transparent 0, #000 24px, #000 calc(100% - 24px), transparent 100%);
     }
 
     .prizes-track {
@@ -497,7 +511,7 @@
       position: absolute;
       top: 10px;
       right: 10px;
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'Roboto', sans-serif;
       font-size: 9.5px;
       font-weight: 700;
       padding: 4px 9px;
@@ -535,7 +549,7 @@
     }
 
     .prize-name {
-      font-family: 'Fraunces', serif;
+      font-family: 'Poppins', sans-serif;
       font-weight: 600;
       font-size: 15px;
       color: var(--ink);
@@ -649,7 +663,7 @@
       display: flex;
       align-items: center;
       gap: 6px;
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'Roboto', sans-serif;
       font-size: 11px;
       font-weight: 700;
       letter-spacing: 0.14em;
@@ -680,7 +694,7 @@
     }
 
     .timer-digits {
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'Roboto', sans-serif;
       font-size: 22px;
       font-weight: 800;
       letter-spacing: -0.02em;
@@ -699,7 +713,7 @@
     }
 
     .timer-unit {
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'Roboto', sans-serif;
       font-size: 10px;
       font-weight: 500;
       color: var(--ink-mute);
@@ -717,7 +731,7 @@
 
     .timer-ended {
       text-align: center;
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'Roboto', sans-serif;
       font-size: 16px;
       font-weight: 700;
       color: var(--ink-mute);
@@ -731,7 +745,7 @@
     }
 
     .stepper-card h2 {
-      font-family: 'Fraunces', serif;
+      font-family: 'Poppins', sans-serif;
       font-weight: 600;
       font-size: 20px;
       margin-bottom: 22px;
@@ -799,7 +813,7 @@
     }
 
     .step h3 {
-      font-family: 'Fraunces', serif;
+      font-family: 'Poppins', sans-serif;
       font-weight: 600;
       font-size: 16px;
       color: var(--ink);
@@ -960,7 +974,7 @@
     }
 
     .info-row h3 {
-      font-family: 'Fraunces', serif;
+      font-family: 'Poppins', sans-serif;
       font-weight: 600;
       font-size: 15px;
       color: var(--ink);
@@ -994,7 +1008,7 @@
       border: none;
       border-radius: 999px;
       cursor: pointer;
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'Roboto', sans-serif;
       font-weight: 700;
       font-size: 14px;
       letter-spacing: 0.04em;
@@ -1161,7 +1175,7 @@
 
     /* Rank number on the far left, just the digits */
     .user-rank-pill {
-      font-family: 'Fraunces', serif;
+      font-family: 'Poppins', sans-serif;
       font-weight: 700;
       font-size: 22px;
       font-variation-settings: "opsz" 144;
@@ -1189,7 +1203,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-family: 'Fraunces', serif;
+      font-family: 'Poppins', sans-serif;
       font-weight: 700;
       font-size: 17px;
       flex-shrink: 0;
@@ -1203,7 +1217,7 @@
     }
 
     .user-info .name {
-      font-family: 'Fraunces', serif;
+      font-family: 'Poppins', sans-serif;
       font-weight: 700;
       font-size: 15px;
       color: var(--ink);
@@ -1222,7 +1236,7 @@
     }
 
     .user-info .sub {
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'Roboto', sans-serif;
       font-size: 10.5px;
       font-weight: 500;
       color: var(--ink-mute);
@@ -1251,7 +1265,7 @@
     }
 
     .user-pts-pill .v {
-      font-family: 'Fraunces', serif;
+      font-family: 'Poppins', sans-serif;
       font-weight: 700;
       font-size: 17px;
       line-height: 1;
@@ -1267,7 +1281,7 @@
     }
 
     .user-pts-wrap .delta {
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'Roboto', sans-serif;
       font-size: 9.5px;
       font-weight: 600;
       color: var(--sage);
@@ -1351,7 +1365,7 @@
     }
 
     .podium-name {
-      font-family: 'Fraunces', serif;
+      font-family: 'Poppins', sans-serif;
       font-size: 13px;
       font-weight: 600;
       text-align: center;
@@ -1364,7 +1378,7 @@
     }
 
     .podium-pts {
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'Roboto', sans-serif;
       font-size: 11px;
       font-weight: 700;
       padding: 4px 10px;
@@ -1418,7 +1432,7 @@
     }
 
     .podium-num {
-      font-family: 'Fraunces', serif;
+      font-family: 'Poppins', sans-serif;
       font-weight: 800;
       font-variation-settings: "opsz" 144;
       line-height: 1;
@@ -1461,7 +1475,7 @@
     }
 
     .lb-list-head h3 {
-      font-family: 'Fraunces', serif;
+      font-family: 'Poppins', sans-serif;
       font-weight: 600;
       font-size: 15px;
       color: var(--ink);
@@ -1490,7 +1504,7 @@
     .lb-rank {
       width: 28px;
       flex-shrink: 0;
-      font-family: 'Fraunces', serif;
+      font-family: 'Poppins', sans-serif;
       font-weight: 600;
       font-size: 15px;
       color: var(--ink-2);
@@ -1516,7 +1530,7 @@
 
     .lb-name {
       flex: 1;
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'Roboto', sans-serif;
       font-weight: 600;
       font-size: 14px;
       color: var(--ink);
@@ -1531,14 +1545,14 @@
     }
 
     .lb-pts {
-      font-family: 'Fraunces', serif;
+      font-family: 'Poppins', sans-serif;
       font-weight: 600;
       font-size: 15px;
       color: var(--marigold);
     }
 
     .lb-pts small {
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'Roboto', sans-serif;
       font-size: 10px;
       font-weight: 500;
       color: var(--ink-mute);
@@ -1573,7 +1587,7 @@
     }
 
     .code-value {
-      font-family: 'Fraunces', serif;
+      font-family: 'Poppins', sans-serif;
       font-weight: 700;
       font-size: 30px;
       font-variation-settings: "opsz" 144, "SOFT" 30;
@@ -1591,7 +1605,7 @@
       border-radius: 999px;
       background: var(--ink);
       color: var(--ivory);
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'Roboto', sans-serif;
       font-weight: 600;
       font-size: 12px;
       letter-spacing: 0.08em;
@@ -1658,7 +1672,7 @@
     }
 
     .share-btn span {
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'Roboto', sans-serif;
       font-size: 11px;
       font-weight: 600;
       color: var(--ink-2);
@@ -1690,7 +1704,7 @@
     }
 
     .earnings-card .v {
-      font-family: 'Fraunces', serif;
+      font-family: 'Poppins', sans-serif;
       font-weight: 700;
       font-size: 24px;
       color: var(--ink);
@@ -1718,7 +1732,7 @@
     }
 
     .refs-card h3 {
-      font-family: 'Fraunces', serif;
+      font-family: 'Poppins', sans-serif;
       font-weight: 600;
       font-size: 17px;
       margin-bottom: 14px;
@@ -1754,7 +1768,7 @@
     }
 
     .ref-name {
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'Roboto', sans-serif;
       font-weight: 600;
       font-size: 13.5px;
       color: var(--ink);
@@ -1784,7 +1798,7 @@
       gap: 4px;
       padding: 4px 9px 4px 7px;
       border-radius: 999px;
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'Roboto', sans-serif;
       font-size: 10px;
       font-weight: 700;
       letter-spacing: 0.06em;
@@ -1818,7 +1832,7 @@
       border: 1px solid var(--line-strong);
       background: transparent;
       color: var(--ink);
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'Roboto', sans-serif;
       font-weight: 600;
       font-size: 12px;
       letter-spacing: 0.08em;
@@ -1889,7 +1903,7 @@
     }
 
     .sheet-title {
-      font-family: 'Fraunces', serif;
+      font-family: 'Poppins', sans-serif;
       font-weight: 600;
       font-size: 18px;
       letter-spacing: -0.02em;
@@ -1920,7 +1934,7 @@
     }
 
     .rules-section-title {
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'Roboto', sans-serif;
       font-size: 10px;
       font-weight: 600;
       color: var(--ink-mute);
@@ -1957,7 +1971,7 @@
     }
 
     .rule-prize-name {
-      font-family: 'Fraunces', serif;
+      font-family: 'Poppins', sans-serif;
       font-weight: 600;
       font-size: 14px;
       margin-bottom: 4px;
@@ -2008,7 +2022,7 @@
       color: var(--ivory);
       border: none;
       border-radius: 999px;
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'Roboto', sans-serif;
       font-weight: 700;
       font-size: 13px;
       letter-spacing: 0.1em;
@@ -2031,7 +2045,7 @@
     }
 
     .faq-q {
-      font-family: 'Fraunces', serif;
+      font-family: 'Poppins', sans-serif;
       font-weight: 600;
       font-size: 14.5px;
       color: var(--ink);
@@ -2175,7 +2189,7 @@
         alt="BankSathi" class="brand-logo" />
       <div class="brand-text">
         <span class="brand-name">BankSathi</span>
-        <span class="brand-tag">Referral Champion League</span>
+        <span class="brand-tag">Referral Champions League</span>
       </div>
     </header>
 
@@ -2205,13 +2219,29 @@
           <!-- Lifetime + Prizes ticket pair -->
           <div class="ticket-pair">
 
-            <!-- Lifetime Reward -->
-            <div class="card card-marigold lifetime-card">
+            /* Lifetime Reward card */
+            <div class="card card-dark-purple lifetime-card">
+              <div class="bg-stars">
+                <svg width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none">
+                  <path d="M50 0 L55 40 L95 45 L55 50 L50 90 L45 50 L5 45 L45 40 Z" fill="currentColor" opacity="0.5" />
+                  <path d="M80 60 L83 80 L103 83 L83 86 L80 106 L77 86 L57 83 L77 80 Z" fill="currentColor"
+                    opacity="0.3" />
+                  <path d="M90 20 L92 35 L107 37 L92 39 L90 54 L88 39 L73 37 L88 35 Z" fill="currentColor"
+                    opacity="0.2" />
+                </svg>
+              </div>
               <div class="lifetime-head">
-                <span class="lifetime-label">Lifetime Earnings</span>
+                <span class="lifetime-label">
+                  <svg width="16" height="18" viewBox="0 0 20 24" fill="currentColor"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M10 0L0 4V11C0 17.55 4.25 23.47 10 25C15.75 23.47 20 17.55 20 11V4L10 0ZM8 18L3 13L4.41 11.59L8 15.17L15.59 7.58L17 9L8 18Z" />
+                  </svg>
+                  Refer & Earn for Lifetime
+                </span>
               </div>
               <div class="lifetime-value">10<span class="pct">%</span> Commission</div>
-              <p class="lifetime-sub">Earn forever on every referral's earnings.</p>
+              <p class="lifetime-sub">Earn 10% of your referral's lifetime earnings.</p>
               <!-- bottom-center semicircle notch -->
               <div class="ticket-notch-bottom" aria-hidden="true"></div>
             </div>
@@ -2226,7 +2256,7 @@
             </div>
 
             <!-- Prizes card -->
-            <div class="card prizes-container-card">
+            <div class="card card-dark-purple prizes-container-card">
               <!-- top-center semicircle notch -->
               <div class="ticket-notch-top" aria-hidden="true"></div>
               <div class="section-head">
@@ -2617,7 +2647,7 @@
         <div class="divider"></div>
         <div class="rules-section-title">Terms &amp; Conditions</div>
         <div class="rule-item"><span class="rule-dot">●</span><span class="rule-text">All registered advisors are
-            eligible for the Referral Champion League.</span></div>
+            eligible for the Referral Champions League.</span></div>
         <div class="rule-item"><span class="rule-dot">●</span><span class="rule-text">A referral is 'Valid' only after
             the referred partner earns at least ₹500 in payouts.</span></div>
         <div class="rule-item"><span class="rule-dot">●</span><span class="rule-text">10% Commission is calculated on
@@ -2643,7 +2673,7 @@
       </div>
       <div class="sheet-scroll">
         <div class="faq-item">
-          <div class="faq-q">What is the Referral Champion League?</div>
+          <div class="faq-q">What is the Referral Champions League?</div>
           <div class="faq-a">A 3-month referral contest by BankSathi where you earn a flat 10% commission on every
             referral's earnings, plus win exciting seasonal prizes.</div>
         </div>
@@ -3131,7 +3161,7 @@
 
               // 2. Create clone to bypass parent overflow masks
               const clone = card.cloneNode(true);
-              const appContainer = document.getElementById('app');
+              const appContainer = carousel.closest('.tab-panel');
               const appRect = appContainer.getBoundingClientRect();
 
               clone.style.position = 'absolute';
