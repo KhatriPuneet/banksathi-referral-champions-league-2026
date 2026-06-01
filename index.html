@@ -2855,7 +2855,7 @@
           </svg></button>
       </div>
       <div class="sheet-scroll">
-        <p style="font-size:12.5px; color:var(--ink-mute); margin: -4px 0 14px; line-height:1.5;">
+        <p id="refs-subtitle" style="font-size:12.5px; color:var(--ink-mute); margin: -4px 0 14px; line-height:1.5;">
           Your referrals and their verification status.
         </p>
 
@@ -3052,13 +3052,13 @@
           const urlParams = new URLSearchParams(window.location.search);
           const uVal = urlParams.get('u');
 
-          if (!uVal) {
-            console.log('No "u" parameter found in URL, skipping API call.');
-            return;
-          }
+          // if (!uVal) {
+          //   console.log('No "u" parameter found in URL, skipping API call.');
+          //   return;
+          // }
 
           // Call API with hkg parameter from u
-          // const apiUrl = `http://127.0.0.1:8000/api/refer_contest_data_api?hkg=${encodeURIComponent(uVal)}`;
+          //const apiUrl = `http://127.0.0.1:8000/api/refer_contest_data_api?hkg=${encodeURIComponent(uVal)}`;
 
           const apiUrl = `https://crm.banksathi.com/api/refer_contest_data_api?hkg=${encodeURIComponent(uVal)}`;
 
@@ -3086,11 +3086,26 @@
           const referalCode = apiData.advisor.user_code || '';
 
           document.getElementById('referal-code').textContent = referalCode;
-          document.getElementById('user-rank').textContent = userRank;
-          document.getElementById('user-avatar-disc').textContent = uerFirstName.charAt(0).toUpperCase();
-          document.getElementById('user-name').textContent = uerFirstName;
-          document.getElementById('user-rank-text').textContent = `Rank ${userRank} of ${totalParticipants} · Tap for referrals`;
-          document.getElementById('user-pts').textContent = userReferrals;
+
+          if (!uerFirstName) {
+            const uc = document.getElementById('user-card');
+            uc.removeAttribute('onclick');
+            uc.removeAttribute('onkeydown');
+            uc.setAttribute('aria-label', 'Get your referral link');
+            uc.innerHTML = `
+              <div style="width:100%;text-align:center;padding:4px 0;">
+                <a href="https://banksathi.u9ilnk.me/d/YpYnwH12GA"
+                   style="font-family:'Poppins',sans-serif;font-weight:700;font-size:16px;color:#7E49CB;text-decoration:none;letter-spacing:0.01em;">
+                  Get your link
+                </a>
+              </div>`;
+          } else {
+            document.getElementById('user-rank').textContent = userRank;
+            document.getElementById('user-avatar-disc').textContent = uerFirstName.charAt(0).toUpperCase();
+            document.getElementById('user-name').textContent = uerFirstName;
+            document.getElementById('user-rank-text').textContent = `Rank ${userRank} of ${totalParticipants} · Tap for referrals`;
+            document.getElementById('user-pts').textContent = userReferrals;
+          }
 
 
           const topTen = apiData.advisor.top_ten_refer_contest || [];
@@ -3123,6 +3138,19 @@
 
           const refCardList = document.getElementById('refs-card-list');
           const sheetRefsList = document.getElementById('sheet-refs-list');
+
+          if (referalList.length === 0) {
+            const subtitle = document.getElementById('refs-subtitle');
+            if (subtitle) {
+              subtitle.textContent = 'Add your 1st referral & win big Prize';
+              subtitle.style.color = '';
+              const btn = document.createElement('button');
+              btn.textContent = 'Refer Now';
+              btn.style.cssText = 'display:inline-block;margin-top:8px;padding:10px 28px;background:#7E49CB;color:#fff;font-family:Poppins,sans-serif;font-weight:700;font-size:14px;border-radius:999px;border:none;cursor:pointer;';
+              btn.addEventListener('click', () => { location.hash = 'refer_now'; });
+              subtitle.insertAdjacentElement('afterend', btn);
+            }
+          }
 
           referalList.forEach(ref => {
             const name = ref.full_name || '—';
