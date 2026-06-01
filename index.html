@@ -287,7 +287,7 @@
       position: relative;
       overflow: hidden;
       border-radius: 18px;
-      background: url('RCL_banner_image.png') no-repeat center/contain;
+      background: url('RCL_banner_image_new.png') no-repeat center/contain;
       aspect-ratio: 864 / 576;
       border: 1px solid rgba(126, 73, 203, 0.3);
       box-shadow: var(--shadow-lg);
@@ -2140,7 +2140,7 @@
       display: flex;
       justify-content: center;
       width: 100%;
-      margin: 8px 0 16px;
+      margin: 4px 0 4px;
     }
 
     .live-ticker-wrap {
@@ -2196,10 +2196,12 @@
         transform: scale(0.95);
         box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.5);
       }
+
       70% {
         transform: scale(1.05);
         box-shadow: 0 0 0 6px rgba(220, 53, 69, 0);
       }
+
       100% {
         transform: scale(0.95);
         box-shadow: 0 0 0 0 rgba(220, 53, 69, 0);
@@ -2211,9 +2213,17 @@
     }
 
     @keyframes ticker-text-glow {
-      0% { opacity: 0.85; }
-      50% { opacity: 1; }
-      100% { opacity: 0.85; }
+      0% {
+        opacity: 0.85;
+      }
+
+      50% {
+        opacity: 1;
+      }
+
+      100% {
+        opacity: 0.85;
+      }
     }
   </style>
 </head>
@@ -2402,23 +2412,23 @@
                   <div class="prize-card">
                     <div class="prize-rank r2">2ND</div>
                     <div class="prize-image-wrap">
-                      <img src="earbuds.png" alt="Elite Earbuds" class="prize-img" />
-                    </div>
-                    <div class="prize-name">Elite Earbuds</div>
-                  </div>
-                  <div class="prize-card">
-                    <div class="prize-rank r3">3RD</div>
-                    <div class="prize-image-wrap">
                       <img src="tablet.png" alt="Pro Tablet" class="prize-img" />
                     </div>
                     <div class="prize-name">Pro Tablet</div>
                   </div>
                   <div class="prize-card">
-                    <div class="prize-rank r4">4–50TH</div>
+                    <div class="prize-rank r3">3RD</div>
                     <div class="prize-image-wrap">
                       <img src="smartphone..png" alt="Smartphone" class="prize-img" />
                     </div>
                     <div class="prize-name">Smartphone</div>
+                  </div>
+                  <div class="prize-card">
+                    <div class="prize-rank r4">4–50TH</div>
+                    <div class="prize-image-wrap">
+                      <img src="earbuds.png" alt="Elite Earbuds" class="prize-img" />
+                    </div>
+                    <div class="prize-name">Elite Earbuds</div>
                   </div>
                   <!-- copy 2 (seamless loop) -->
                   <div class="prize-card first" aria-hidden="true">
@@ -2431,23 +2441,23 @@
                   <div class="prize-card" aria-hidden="true">
                     <div class="prize-rank r2">2ND</div>
                     <div class="prize-image-wrap">
-                      <img src="earbuds.png" alt="Elite Earbuds" class="prize-img" />
-                    </div>
-                    <div class="prize-name">Elite Earbuds</div>
-                  </div>
-                  <div class="prize-card" aria-hidden="true">
-                    <div class="prize-rank r3">3RD</div>
-                    <div class="prize-image-wrap">
                       <img src="tablet.png" alt="Pro Tablet" class="prize-img" />
                     </div>
                     <div class="prize-name">Pro Tablet</div>
                   </div>
                   <div class="prize-card" aria-hidden="true">
-                    <div class="prize-rank r4">4–50TH</div>
+                    <div class="prize-rank r3">3RD</div>
                     <div class="prize-image-wrap">
                       <img src="smartphone..png" alt="Smartphone" class="prize-img" />
                     </div>
                     <div class="prize-name">Smartphone</div>
+                  </div>
+                  <div class="prize-card" aria-hidden="true">
+                    <div class="prize-rank r4">4–50TH</div>
+                    <div class="prize-image-wrap">
+                      <img src="earbuds.png" alt="Elite Earbuds" class="prize-img" />
+                    </div>
+                    <div class="prize-name">Elite Earbuds</div>
                   </div>
                 </div>
               </div>
@@ -2513,8 +2523,8 @@
                   </svg></div>
                 <div>
                   <h3>Share Your Link</h3>
-                  <p>Send your invite link or advisor code to friends, family and prospects to download Banksathi app
-                    link.</p>
+                  <p>Share your invite link to friends, family and prospects to download Banksathi app
+                  </p>
                 </div>
               </div>
               <div class="step">
@@ -2524,7 +2534,7 @@
                   </svg></div>
                 <div>
                   <h3>They Sign Up</h3>
-                  <p>Your friend registers on BankSathi and completes their 1st earning of ₹500.</p>
+                  <p>Your friend registers on BankSathi and completes their 1st earning of ₹500</p>
                 </div>
               </div>
               <div class="step">
@@ -2533,7 +2543,7 @@
                   </svg></div>
                 <div>
                   <h3>Earn Rewards</h3>
-                  <p>Get 10% commission + chance to win big prize this season.</p>
+                  <p>Get 10% commission + chance to win big prize this season</p>
                 </div>
               </div>
             </div>
@@ -2764,22 +2774,18 @@
           <div class="rule-prize-card" style="border-color:rgba(184,134,11,0.3); background:var(--gold-soft);">
             <div class="rule-prize-rank gold">1st Place</div>
             <div class="rule-prize-name">50" Smart TV</div>
-            <div class="rule-prize-val gold tnum">₹25,000 – ₹35,000</div>
           </div>
           <div class="rule-prize-card">
             <div class="rule-prize-rank">2nd Place</div>
             <div class="rule-prize-name">Pro Tablet</div>
-            <div class="rule-prize-val tnum">₹12,000 – ₹15,000</div>
           </div>
           <div class="rule-prize-card">
             <div class="rule-prize-rank">3rd Place</div>
             <div class="rule-prize-name">Smartphone</div>
-            <div class="rule-prize-val tnum">₹8,000 – ₹10,000</div>
           </div>
           <div class="rule-prize-card">
             <div class="rule-prize-rank">4th – 50th</div>
             <div class="rule-prize-name">Elite Earbuds</div>
-            <div class="rule-prize-val tnum">Value ₹500</div>
           </div>
         </div>
         <div class="divider"></div>
@@ -2812,8 +2818,9 @@
       <div class="sheet-scroll">
         <div class="faq-item">
           <div class="faq-q">What is the Referral Champions League?</div>
-          <div class="faq-a">A 3-month referral contest by BankSathi where you earn a flat 10% commission on every
-            referral's earnings, plus win exciting seasonal prizes.</div>
+          <div class="faq-a">A 45 Day referral contest by BankSathi where you get chance to win exiting prizes + earn
+            10% commission on every
+            referral's earnings.</div>
         </div>
         <div class="faq-item">
           <div class="faq-q">Is the 10% commission on top of my regular payout?</div>
@@ -2831,9 +2838,9 @@
             earnings. Check the Contest Rules for the full breakdown.</div>
         </div>
         <div class="faq-item">
-          <div class="faq-q">How do I claim my bonus?</div>
-          <div class="faq-a">Once your referral clears, the bonus moves from "Pending" to "Verified". You will receive a
-            confirmation call/whstapp/email notification from us.</div>
+          <div class="faq-q">How will I receive my Prize?</div>
+          <div class="faq-a">Once you are eligble for the prize. You will receive a
+            confirmation call/whstapp/email notification from BankSathi team.</div>
         </div>
       </div>
     </div>
@@ -3199,8 +3206,8 @@
 
         // Start: 1 Jun 2026 00:00 IST
         const START_IST = new Date('2026-06-01T00:00:00+05:30').getTime();
-        // End:  30 Aug 2026 23:59:59 IST (i.e. midnight of 31 Aug IST)
-        const END_IST = new Date('2026-08-31T00:00:00+05:30').getTime();
+        // End:  15 July 2026 23:59:59 IST (i.e. midnight of 16 July IST)
+        const END_IST = new Date('2026-07-16T00:00:00+05:30').getTime();
 
         const elBlocks = document.getElementById('timerBlocks');
         const elEnded = document.getElementById('timerEnded');
@@ -3345,32 +3352,32 @@
       })();
 
       // ── Live Activity Ticker Logic ──
-      (function() {
+      (function () {
         const cities = [
-          "Mumbai", "Delhi", "Bengaluru", "Hyderabad", "Chennai", "Kolkata", "Pune", 
-          "Ahmedabad", "Jaipur", "Lucknow", "Surat", "Kanpur", "Nagpur", "Indore", 
-          "Bhopal", "Patna", "Chandigarh", "Kochi", "Thiruvananthapuram", "Visakhapatnam", 
-          "Coimbatore", "Mysuru", "Vadodara", "Nashik", "Rajkot", "Guwahati", 
+          "Mumbai", "Delhi", "Bengaluru", "Hyderabad", "Chennai", "Kolkata", "Pune",
+          "Ahmedabad", "Jaipur", "Lucknow", "Surat", "Kanpur", "Nagpur", "Indore",
+          "Bhopal", "Patna", "Chandigarh", "Kochi", "Thiruvananthapuram", "Visakhapatnam",
+          "Coimbatore", "Mysuru", "Vadodara", "Nashik", "Rajkot", "Guwahati",
           "Ranchi", "Bhubaneswar", "Amritsar", "Srinagar"
         ];
-        
+
         const namesSet1 = [
-          "Aarav", "Ananya", "Vivaan", "Diya", "Arjun", "Meera", "Rohan", "Kavya", 
-          "Aditya", "Priya", "Karthik", "Sneha", "Rahul", "Pooja", "Ishaan", "Aditi", 
-          "Siddharth", "Neha", "Manav", "Ritika", "Harsh", "Nandini", "Akash", "Shreya", 
-          "Dev", "Tanvi", "Abhishek", "Ira", "Yash", "Simran", "Nikhil", "Anushka", 
-          "Pranav", "Madhuri", "Varun", "Rhea", "Aman", "Sanjana", "Krishna", "Ishita", 
-          "Gaurav", "Ayesha", "Chirag", "Lavanya", "Mohit", "Komal", "Reyansh", "Farah", 
+          "Aarav", "Ananya", "Vivaan", "Diya", "Arjun", "Meera", "Rohan", "Kavya",
+          "Aditya", "Priya", "Karthik", "Sneha", "Rahul", "Pooja", "Ishaan", "Aditi",
+          "Siddharth", "Neha", "Manav", "Ritika", "Harsh", "Nandini", "Akash", "Shreya",
+          "Dev", "Tanvi", "Abhishek", "Ira", "Yash", "Simran", "Nikhil", "Anushka",
+          "Pranav", "Madhuri", "Varun", "Rhea", "Aman", "Sanjana", "Krishna", "Ishita",
+          "Gaurav", "Ayesha", "Chirag", "Lavanya", "Mohit", "Komal", "Reyansh", "Farah",
           "Tarun", "Bhavna"
         ];
-        
+
         const namesSet2 = [
-          "Rudra", "Aarohi", "Vedant", "Manya", "Atharv", "Zoya", "Dhruv", "Palak", 
-          "Lakshya", "Niharika", "Omkar", "Suhani", "Ritesh", "Khushi", "Ayaan", "Muskaan", 
-          "Tanishq", "Ruchi", "Parth", "Trisha", "Samar", "Anvi", "Kunal", "Pallavi", 
-          "Vikram", "Esha", "Raghav", "Juhi", "Naveen", "Harleen", "Roshan", "Deepika", 
-          "Jayesh", "Mitali", "Saket", "Heena", "Uday", "Purnima", "Rajat", "Shruti", 
-          "Kabir", "Apeksha", "Sameer", "Vidhi", "Aniket", "Saloni", "Hemant", "Nisha", 
+          "Rudra", "Aarohi", "Vedant", "Manya", "Atharv", "Zoya", "Dhruv", "Palak",
+          "Lakshya", "Niharika", "Omkar", "Suhani", "Ritesh", "Khushi", "Ayaan", "Muskaan",
+          "Tanishq", "Ruchi", "Parth", "Trisha", "Samar", "Anvi", "Kunal", "Pallavi",
+          "Vikram", "Esha", "Raghav", "Juhi", "Naveen", "Harleen", "Roshan", "Deepika",
+          "Jayesh", "Mitali", "Saket", "Heena", "Uday", "Purnima", "Rajat", "Shruti",
+          "Kabir", "Apeksha", "Sameer", "Vidhi", "Aniket", "Saloni", "Hemant", "Nisha",
           "Bhavesh", "Tanya"
         ];
 
@@ -3383,7 +3390,7 @@
           const isSet1First = Math.random() < 0.5;
           const name1 = getRandomElement(namesSet1);
           const name2 = getRandomElement(namesSet2);
-          
+
           if (isSet1First) {
             return `${name1} from ${city} referred ${name2}`;
           } else {
@@ -3392,26 +3399,26 @@
         }
 
         const tickerElement = document.getElementById('live-ticker-content');
-        
+
         // Set first message immediately
         if (tickerElement) {
           tickerElement.innerHTML = `<span class="animate-pulse">${generateMessage()}</span>`;
         }
-        
+
         setInterval(() => {
           if (tickerElement) {
             // Slide out upwards
             tickerElement.classList.add('slide-out');
-            
+
             setTimeout(() => {
               // Snap to bottom instantly while invisible
               tickerElement.classList.remove('slide-out');
               tickerElement.classList.add('slide-in-prep');
               tickerElement.innerHTML = `<span class="animate-pulse">${generateMessage()}</span>`;
-              
+
               // Force reflow
               tickerElement.offsetHeight;
-              
+
               // Slide in to center from bottom
               tickerElement.classList.remove('slide-in-prep');
             }, 250);
