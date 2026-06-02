@@ -2673,7 +2673,7 @@
           <div class="code-card">
             <div class="code-label">Your Referral Code</div>
             <div class="code-value tnum" id="referal-code"></div>
-            <button class="copy-btn" onclick="location.hash='refer_now';">
+            <button class="copy-btn" onclick="handleReferFab()">
               <span class="si tg"><svg class="icon">
                   <use href="#i-tg"></use>
                 </svg></span> Share
@@ -2736,8 +2736,8 @@
       <div class="user-rank-pill tnum"><span class="hash">#</span><span id="user-rank">12</span></div>
       <div class="user-avatar-disc" id="user-avatar-disc">R</div>
       <div class="user-info">
-        <div class="name"><span class="you-mark">You ·</span><span id="user-name">Rakesh Sharma</span></div>
-        <div class="sub tnum" id="user-rank-text">Rank 12 of 500 · Tap for referrals</div>
+        <div class="name"><span class="you-mark">You ·</span><span id="user-name">XXX Sharma</span></div>
+        <div class="sub tnum" id="user-rank-text">Rank 0 of 0 · Tap for referrals</div>
       </div>
       <div class="user-pts-wrap">
         <div class="user-pts-pill">
@@ -2749,7 +2749,7 @@
     </div>
 
     <!-- ══ FLOATING REFER NOW CTA (Contest tab only) ══ -->
-    <button class="refer-fab" id="referFab" onclick="location.hash='refer_now';" aria-label="Go to Refer section">
+    <button class="refer-fab" id="referFab" onclick="handleReferFab()" aria-label="Go to Refer section">
       <svg class="icon">
         <use href="#i-share"></use>
       </svg>
@@ -2948,6 +2948,21 @@
       }
 
       // ── Copy code ──
+      function isWebView() {
+        const ua = navigator.userAgent;
+        const isAndroid = /wv/.test(ua) || /Android.*Version\/[\d.]+.*Chrome\/[\d.]+ Mobile/.test(ua);
+        const isIOS = /iP(hone|od|ad)/.test(ua) && /AppleWebKit/.test(ua) && !/Safari/.test(ua);
+        return window.IS_WEBVIEW === true || isAndroid || isIOS;
+      }
+
+      function handleReferFab() {
+        if (!isWebView()) {
+          window.open('https://banksathi.u9ilnk.me/d/YpYnwH12GA', '_blank');
+        } else {
+          location.hash = 'refer_now';
+        }
+      }
+
       function copyCode() {
         const code = document.getElementById('referal-code').textContent.trim();
         navigator.clipboard.writeText(code).catch(() => { });
