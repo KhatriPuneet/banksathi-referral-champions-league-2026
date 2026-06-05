@@ -2959,7 +2959,15 @@
         if (!isWebView()) {
           window.open('https://banksathi.u9ilnk.me/d/YpYnwH12GA', '_blank');
         } else {
-          location.hash = 'refer_now';
+          // Always clear first so Flutter detects a fresh hashchange every click
+          history.replaceState(null, '', location.pathname + location.search);
+          setTimeout(() => {
+            location.hash = 'refer_now';
+            // Remove after Flutter has time to read it, so next click works too
+            setTimeout(() => {
+              history.replaceState(null, '', location.pathname + location.search);
+            }, 500);
+          }, 50);
         }
       }
 
@@ -3113,6 +3121,16 @@
                    style="font-family:'Poppins',sans-serif;font-weight:700;font-size:16px;color:#7E49CB;text-decoration:none;letter-spacing:0.01em;">
                   Get your link
                 </a>
+              </div>`;
+          } else if (userRank === 0) {
+            const uc = document.getElementById('user-card');
+            uc.style.cursor = 'pointer';
+            uc.setAttribute('onclick', 'handleReferFab()');
+            uc.setAttribute('onkeydown', "if(event.key==='Enter'||event.key===' '){event.preventDefault();handleReferFab();}");
+            uc.innerHTML = `
+              <div style="display:flex;flex-direction:column;gap:4px;padding:2px 0;">
+                <div style="font-family:'DM Sans',sans-serif;font-weight:700;font-size:15px;color:var(--ink);">${uerFirstName}</div>
+                <div style="font-family:'DM Sans',sans-serif;font-size:13px;color:var(--ink-mute);">Refer to enter the contest</div>
               </div>`;
           } else {
             document.getElementById('user-rank').textContent = userRank;
